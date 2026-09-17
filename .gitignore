@@ -1,0 +1,9 @@
+# Personal learning records: keep local and never publish.
+/private-notes/
+
+# Secrets and machine-specific files.
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
