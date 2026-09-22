@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-05",
+  "week": 1,
+  "day": 5,
+  "title": "NAS、Server、Self-hosting 与 Homelab",
+  "quizVersion": 1,
+  "domains": ["Self-hosting", "Storage"],
+  "recall": [
+    { "id": "r1", "stem": "NAS 为什么是计算机？" },
+    { "id": "r2", "stem": "NAS 在什么时候扮演 Server？" },
+    { "id": "r3", "stem": "Jellyfin 属于什么？为什么？" },
+    { "id": "r4", "stem": "Self-hosting 描述的是什么？它的判断标准是什么？" },
+    { "id": "r5", "stem": "Homelab 为什么不等于「昂贵机房」？" }
+  ],
+  "summary": {
+    "id": "summary",
+    "stem": "用不超过 100 字回答：Server、Service、Self-hosting 和 Homelab 分别描述什么？",
+    "maxChars": 100,
+    "referenceAnswer": "Server 是角色，一台计算机持续向其他设备提供资源或功能时就在扮演它；Service 是它对外提供的具体功能；Self-hosting 是自己运行和维护这些服务的方式；Homelab 是学习、实验和承载这些服务的小型环境，一台 NAS 即可起步。",
+    "keyPoints": [
+      { "text": "指出 Server 描述的是一种角色，而非某类硬件", "required": true },
+      { "text": "指出 Service 是对外提供的具体功能，且可以有多个", "required": true },
+      { "text": "指出 Self-hosting 是自己运行和维护服务的方式", "required": true },
+      { "text": "指出 Homelab 是学习与实验的小型环境，可从一台设备起步", "required": true }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "stem": "关于「Server（服务器角色）」，下列哪一种说法最准确？",
+      "options": [
+        { "key": "A", "text": "只有专门生产的大型服务器硬件才能算 Server" },
+        { "key": "B", "text": "当一台计算机持续向其他设备提供资源或功能时，它就在扮演 Server 角色" },
+        { "key": "C", "text": "Server 是 NAS 的另一个名字，只有 NAS 能扮演 Server" },
+        { "key": "D", "text": "Server 必须放在机房里、由专业人员维护，家庭设备不算" }
+      ],
+      "answer": "B",
+      "explanation": "B 抓住了关键：Server 描述的是「持续向其他设备提供资源或功能」这一角色。A 把角色当成了某类硬件；C 把角色窄化成了某一种设备；D 用机房的部署方式代替了角色的判断标准，而 NAS、迷你电脑甚至旧电脑都能扮演 Server。",
+      "distractors": {
+        "A": "误区一 —— Server 只指专门生产的大型服务器硬件",
+        "C": "把一种具体设备当成了 Server 的定义",
+        "D": "误区一 —— Server 只指专门生产的大型服务器硬件，家庭设备不算"
+      },
+      "domains": ["Self-hosting"],
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "stem": "一台 NAS 上同时运行着文件共享、Jellyfin 和 Immich。关于这里的 Server 与 Service，下列哪种说法最准确？",
+      "options": [
+        { "key": "A", "text": "文件共享、Jellyfin 和 Immich 合起来只能算一个 Service" },
+        { "key": "B", "text": "NAS 扮演 Server 角色，文件共享、Jellyfin 和 Immich 是它提供的三个 Service" },
+        { "key": "C", "text": "只有 Jellyfin 和 Immich 算 Service，文件共享不算" },
+        { "key": "D", "text": "Server 指的就是这三个 Service 中的某一个" }
+      ],
+      "answer": "B",
+      "explanation": "一台设备扮演一个 Server 角色，却可以同时对外提供多个 Service。文件共享同样是面向其他设备的服务，所以 A、C 都窄化了 Service；D 把「提供者」和「提供出来的功能」混为一谈。",
+      "distractors": {
+        "A": "误区二 —— 一台 NAS 只能干一件事",
+        "C": "误区二 —— 低估了同一台 NAS 能同时提供的服务数量，漏算了文件共享",
+        "D": "误区五 —— 把 Server 和 Service 当成同一件事"
+      },
+      "domains": ["Self-hosting"],
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "stem": "「Server」只指专门生产的大型服务器硬件。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。Server 首先是一种角色：当一台计算机持续向其他设备提供资源或功能时，它就在扮演 Server。一台 NAS、一台迷你电脑甚至一台旧电脑都能扮演这个角色，硬件的价格和外形不决定它是不是 Server。",
+      "domains": ["Self-hosting"],
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "stem": "把应用部署在第三方云端并长期运行，也属于用户自己的 Self-hosting。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。Self-hosting 的判断标准是「谁来运行和维护」，而不是「放在哪里」。由服务商负责服务器、备份和可用性的云端服务属于托管服务；只有运行在自己控制、自己维护的设备上，才是 Self-hosting。",
+      "domains": ["Self-hosting"],
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "stem": "Server 和 Service 有什么区别？请结合 NAS 举一个例子。",
+      "hint": "请不要只回答「一个是硬件一个是软件」，而要说明两者在「提供者—提供物」关系中的不同位置。",
+      "referenceAnswer": "Server 描述的是角色，回答「谁在持续对外提供」：当一台计算机持续向其他设备提供资源或功能时，它就是 Server。Service 描述的是功能，回答「提供出来的具体是什么」：它是 Server 对外提供的某一项能力。两者是提供者和提供物的关系，所以同一台 NAS 可以扮演一个 Server 角色，同时提供多个 Service。例如家里的 NAS 作为 Server，向全家的设备提供文件共享、Jellyfin 影音和 Immich 照片这三个不同的 Service。",
+      "keyPoints": [
+        { "text": "指出 Server 描述的是「角色」，回答谁在持续对外提供", "required": true },
+        { "text": "指出 Service 描述的是「功能」，是 Server 对外提供的具体能力", "required": true },
+        { "text": "说明同一台设备扮演一个 Server 角色，却可以提供多个 Service", "required": true },
+        { "text": "结合 NAS 举出具体例子（文件共享 / Jellyfin / Immich）", "required": true }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 2
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "stem": "Self-hosting 和 Homelab 分别描述什么？为什么它们不是同一件事？",
+      "referenceAnswer": "Self-hosting 描述的是一种运行与管理方式：服务运行在自己控制、自己维护的设备上，更新、配置、备份和故障处理都由自己负责，而不是交给服务商代管。Homelab 描述的是一个环境：用于学习、实验和运行个人服务的小型计算环境，一台 NAS 或一台迷你电脑就可以起步，允许试错和推倒重来。两者经常重合——你往往就是在自己的 Homelab 里实践 Self-hosting——但它们回答的是不同问题：Self-hosting 关心「谁来运行和维护」，Homelab 关心「在哪里学习、实验和承载这些服务」。",
+      "keyPoints": [
+        { "text": "指出 Self-hosting 是一种运行与管理方式：由自己控制、自己维护", "required": true },
+        { "text": "指出 Homelab 是一个用于学习、实验和运行个人服务的环境", "required": true },
+        { "text": "指出 Homelab 可以从一台 NAS 或一台迷你电脑起步", "required": true },
+        { "text": "说明两者常重合，但回答的问题不同（谁来维护 vs 在哪承载）", "required": false }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 2
+    },
+    {
+      "id": "q7",
+      "type": "scenario",
+      "stem": "在一台 NAS 上运行 Jellyfin，供家里的电视和手机观看影片。",
+      "prompt": "请分别指出这里的「设备」「服务器角色」和「服务」，并说明你的判断依据。",
+      "referenceAnswer": "设备是这台 NAS，它是实际运行的那台计算机。服务器角色由这台 NAS 承担：因为它持续向家里的电视、手机等其他设备提供资源和功能，所以它在这件事里扮演 Server。服务是 Jellyfin，它是这台 NAS 对外提供的那一项具体功能。判断依据是三个词回答的问题不同：设备回答「是哪台机器」，Server 回答「谁在持续对外提供」，Service 回答「提供的是什么功能」。三者不是三台不同的机器，而是同一台 NAS 的三种描述角度。",
+      "keyPoints": [
+        { "text": "指出设备就是运行服务的这台 NAS", "required": true },
+        { "text": "指出 NAS 因持续向其他设备提供功能而扮演 Server 角色", "required": true },
+        { "text": "指出 Jellyfin 是这台 NAS 提供的一个 Service", "required": true },
+        { "text": "说明设备、Server、Service 分别回答「哪台机器 / 谁在提供 / 提供什么」", "required": false }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 3
+    },
+    {
+      "id": "q8",
+      "type": "scenario",
+      "stem": "老王把一台闲置的旧电脑接上硬盘、装上系统，让它长期在线，向家人的手机和电脑提供照片浏览服务。",
+      "prompt": "这台旧电脑是否在扮演 Server？请说明理由，并指出它是否构成 Self-hosting。",
+      "referenceAnswer": "是。扮演 Server 的判断标准不是硬件价格或外形，而是「是否持续向其他设备提供资源或功能」。这台旧电脑长期在线、通过网络向家人的手机和电脑提供照片浏览，正好符合这一点，所以它在这件事里就是 Server。它同时构成 Self-hosting：这套服务运行在老王自己控制、自己维护的设备上，更新、排错都由他负责，没有交给第三方代管。这说明 Server 是一种角色，不是某类昂贵硬件，旧设备一样可以承担。",
+      "keyPoints": [
+        { "text": "明确回答是，旧电脑在扮演 Server", "required": true },
+        { "text": "说明判断标准是「持续向其他设备提供资源或功能」，而非硬件价格或外形", "required": true },
+        { "text": "指出它同时构成 Self-hosting，因为服务由自己控制、自己维护", "required": true },
+        { "text": "指出 Server 是角色而不是某类特定硬件", "required": false }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 3
+    },
+    {
+      "id": "q9",
+      "type": "scenario",
+      "stem": "小周的 NAS 上同时运行着文件共享、Jellyfin、Immich 和 Pi-hole（网络广告过滤），他还用 Tailscale 在外网访问自己的设备。",
+      "prompt": "请说明：这台 NAS 扮演了什么角色？上面这些东西分别属于什么？小周的做法为什么可以称为 Self-hosting？",
+      "referenceAnswer": "这台 NAS 扮演 Server 角色，因为它持续向家里的其他设备提供资源和功能。文件共享、Jellyfin、Immich 和 Pi-hole 都是它在对外提供的 Service，说明同一台设备可以同时承载多个服务。Tailscale 则是让他在外网也能安全访问这些服务的连接方式，让「其他设备」不限于家里。他的做法可以称为 Self-hosting，因为这些服务都运行在他自己控制、自己维护的 NAS 上：由他安装、更新、排错和备份，而不是交给第三方服务商代管。",
+      "keyPoints": [
+        { "text": "指出这台 NAS 扮演 Server 角色，因为它持续对外提供资源或功能", "required": true },
+        { "text": "指出文件共享、Jellyfin、Immich、Pi-hole 都是 Service，且可同时存在", "required": true },
+        { "text": "说明 Tailscale 是让外网设备访问这些服务的连接方式", "required": true },
+        { "text": "说明这是 Self-hosting，因为服务由自己运行和维护，而非交给服务商代管", "required": true }
+      ],
+      "domains": ["Self-hosting", "Storage"],
+      "weight": 3
+    },
+    {
+      "id": "q10",
+      "type": "scenario",
+      "stem": "Week 1 周测综合题：把本周五天的概念串成一段完整说明。",
+      "prompt": "用不超过 150 字说明 NAS、Server、Service、Self-hosting 和 Homelab 五个概念之间的关系。（直接在下方文本框作答，篇幅控制在 150 字以内。）",
+      "referenceAnswer": "NAS 是一台联网、以存储和相关服务为主要用途的计算机。当它持续向其他设备提供资源或功能时，就在扮演 Server 角色；它对外提供的每一项功能，例如文件共享、Jellyfin 和 Immich，都是 Service。这些服务由自己运行和维护，就是 Self-hosting；用来学习、实验和承载这些服务的整体环境，则是 Homelab，一台 NAS 或一台迷你电脑就可以起步。",
+      "keyPoints": [
+        { "text": "说明 NAS 是一台联网、以存储和相关服务为主要用途的计算机", "required": true },
+        { "text": "说明持续对外提供资源或功能时，NAS 就在扮演 Server 角色", "required": true },
+        { "text": "说明对外提供的每一项功能是 Service，且可以同时有多个", "required": true },
+        { "text": "说明由自己运行和维护这些服务就是 Self-hosting", "required": true },
+        { "text": "说明承载学习与实验的整体环境是 Homelab，一台设备即可起步", "required": true }
+      ],
+      "domains": ["Self-hosting", "Storage"],
+      "weight": 3
+    }
+  ]
+}

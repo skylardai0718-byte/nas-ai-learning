@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-02",
+  "week": 1,
+  "day": 2,
+  "title": "一台 NAS 的四个硬件角色",
+  "quizVersion": 1,
+  "domains": ["Hardware"],
+  "recall": [
+    {
+      "id": "r1",
+      "stem": "请用一个自己的类比，解释 CPU、RAM、Storage、Network 分别是什么角色。"
+    },
+    {
+      "id": "r2",
+      "stem": "不用类比，准确地各用一句话说明这四个部件负责什么。"
+    },
+    {
+      "id": "r3",
+      "stem": "为什么 16GB RAM 不能替代 16TB 硬盘？"
+    },
+    {
+      "id": "r4",
+      "stem": "把 CPU、RAM、Storage、Network 补进计算机知识地图：它们位于哪一层？各自负责什么？"
+    },
+    {
+      "id": "r5",
+      "stem": "手机把一张照片上传到 NAS，四个部件大致以怎样的顺序参与？"
+    }
+  ],
+  "summary": {
+    "id": "summary",
+    "stem": "用不超过 100 字回答：一台 NAS 的四个硬件角色各自负责什么？",
+    "maxChars": 100,
+    "referenceAnswer": "CPU 负责做事，执行指令和计算；RAM 是临时工作区，放置正在处理的数据，断电会丢失；Storage 长期保存文件，断电后仍在；Network 负责对外连接，决定数据能否以及多快进出 NAS。四者接力协作，不能互相替代。",
+    "keyPoints": [
+      { "text": "CPU 负责执行指令和计算（做事）", "required": true },
+      { "text": "RAM 是临时工作区，断电后内容不保留", "required": true },
+      { "text": "Storage 负责长期保存，断电后数据仍在", "required": true },
+      { "text": "Network 负责对外连接，决定数据进出", "required": true },
+      { "text": "指出四者分工不同、不能互相替代", "required": false }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "stem": "关于一台 NAS 的四个硬件角色，下列说法哪一项是正确的？",
+      "options": [
+        { "key": "A", "text": "RAM 和硬盘是一回事，内存越大，能长期保存的文件越多。" },
+        { "key": "B", "text": "NAS 变慢一定是 CPU 不够强，换更强的 CPU 总能解决。" },
+        { "key": "C", "text": "Storage 负责长期保存数据，断电以后数据仍然存在。" },
+        { "key": "D", "text": "文件传进 NAS 只是硬盘的工作，和网络没有任何关系。" }
+      ],
+      "answer": "C",
+      "explanation": "C 正确：长期保存、断电后仍在，正是 Storage 的职责。A 把临时工作区当成了长期仓库，B 把性能问题一律归给 CPU，D 忽略了数据必须先经过网络才能进出 NAS。",
+      "distractors": {
+        "A": "误区一 —— 内存和硬盘是一回事，内存大就等于存得多",
+        "B": "误区三 —— NAS 变慢一定是 CPU 不够强",
+        "D": "误区四 —— 文件传进 NAS 只是硬盘的事，和网络无关"
+      },
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "stem": "把「计算、临时放置、长期保存、传输」与四个部件对应起来，下列哪一项是正确的？",
+      "options": [
+        { "key": "A", "text": "计算 → CPU；临时放置 → RAM" },
+        { "key": "B", "text": "临时放置 → Storage；长期保存 → RAM" },
+        { "key": "C", "text": "长期保存 → Network；传输 → Storage" },
+        { "key": "D", "text": "计算 → Storage；长期保存 → CPU" }
+      ],
+      "answer": "A",
+      "explanation": "A 正确：CPU 负责计算，RAM 用来临时放置正在处理的数据。B 把 RAM 和 Storage 的职责互换，C 把 Storage 和 Network 的职责互换，D 则把「计算」和「长期保存」安到了不负责它们的部件上。",
+      "distractors": {
+        "B": "误区一 —— 内存和硬盘是一回事，把 RAM 当成了长期保存的仓库",
+        "C": "误区四 —— 以为传输与网络无关，把网络当成了保存数据的地方",
+        "D": "把 CPU 和 Storage 的职责整个对调了 —— 计算是 CPU 的事，长期保存才是 Storage 的事"
+      },
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "stem": "断电以后，RAM 中的数据通常仍会长期保留。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。RAM 是临时工作区，属于易失性存储，断电后其中的内容通常会丢失。断电后仍然存在的是写在 Storage 上的数据。「断电后还在不在」正是区分 RAM 和 Storage 最直接的一条线索。",
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "stem": "一块硬盘的容量越大，说明这台 NAS 的处理能力越强。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。容量回答的是「能存多少」，处理能力回答的是「算得多快」，两者由不同部件决定。换一块更大的硬盘不会让 CPU 变得更能干，也不会让照片缩略图生成得更快。",
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "stem": "CPU 和 RAM 如何配合？为什么它们不能互相替代？",
+      "hint": "请说明两者各自做什么，以及它们和「长期保存」是什么关系。",
+      "referenceAnswer": "CPU 负责执行指令和计算，是真正「做事」的部件；RAM 是临时工作区，存放正在被处理的数据，供 CPU 快速取用。两者的关系是：数据先被放进 RAM，CPU 再从 RAM 中读取并运算，结果也先回到 RAM。它们不能互相替代，因为 CPU 只会处理和运算，保存不了数据；RAM 能暂存数据，却不会自己计算。而且 RAM 断电后会丢失内容，长期保存要靠 Storage 完成，这一职责 CPU 和 RAM 都不承担。",
+      "keyPoints": [
+        { "text": "指出 CPU 负责执行指令和计算", "required": true },
+        { "text": "指出 RAM 是临时工作区，存放正在被处理的数据", "required": true },
+        { "text": "说明数据先进入 RAM，CPU 再从中读取并运算", "required": true },
+        { "text": "指出 RAM 断电会丢失，长期保存要交给 Storage", "required": true },
+        { "text": "说明 CPU 不会保存数据、RAM 不会自己计算，所以不可互换", "required": false }
+      ],
+      "domains": ["Hardware"],
+      "weight": 2
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "stem": "RAM 和 Storage 有什么区别？为什么 16GB RAM 不能替代 16TB 硬盘？",
+      "referenceAnswer": "RAM 是临时工作区，速度快、断电后内容会丢失，用来存放正在被处理的数据；Storage 负责长期保存，容量大、断电后数据仍在，但读写速度比 RAM 慢得多。所以 16GB RAM 不能替代 16TB 硬盘：两者首先在容量上就不是一个量级，16GB 的临时工作区装不下 16TB 的视频和照片；更重要的是职责不同，RAM 不做长期保存，一断电内容就消失，而我们需要的是「重启以后还能找得到文件」，这件事只能由 Storage 完成。",
+      "keyPoints": [
+        { "text": "指出 RAM 是临时工作区，断电后内容会丢失", "required": true },
+        { "text": "指出 Storage 负责长期保存，断电后数据仍在", "required": true },
+        { "text": "比较容量量级：16GB 装不下 16TB 的文件", "required": true },
+        { "text": "指出真正的原因是职责不同，而不只是大小不同", "required": true }
+      ],
+      "domains": ["Hardware"],
+      "weight": 2
+    },
+    {
+      "id": "q7",
+      "type": "scenario",
+      "stem": "你在 NAS 上为几万张照片生成缩略图，过程持续了很久，感觉非常慢。",
+      "prompt": "哪个部件的工作关系最直接？还可能受哪些部件影响？请说明理由。",
+      "referenceAnswer": "关系最直接的是 CPU。生成缩略图需要反复进行图像运算，属于典型的「做事」，运算量主要由 CPU 承担，所以它最直接。但也不能只看 CPU：图片要先从 Storage 里读出来、生成的结果还要写回去，这一读一写受存储速度影响；处理过程中正在使用的图片数据会先放进 RAM 暂存，RAM 不够时也会拖慢整体表现。因此 CPU 是主要环节，Storage 和 RAM 也可能参与影响。",
+      "keyPoints": [
+        { "text": "指出 CPU 的工作关系最直接，因为它负责图像运算", "required": true },
+        { "text": "指出图片需要从 Storage 读出、结果写回，可能受存储影响", "required": true },
+        { "text": "指出 RAM 会暂存正在处理的数据，可能影响速度", "required": true },
+        { "text": "强调不能只凭一个部件下结论，慢可能来自多个环节", "required": false }
+      ],
+      "domains": ["Hardware"],
+      "weight": 3
+    },
+    {
+      "id": "q8",
+      "type": "scenario",
+      "stem": "你用手机把一张照片上传到家里的 NAS，照片保存成功，重启 NAS 后仍然能找到。",
+      "prompt": "请按顺序说明四个硬件角色各自做了什么，并指出这张照片最终保存在哪里。",
+      "referenceAnswer": "顺序是：Network 先把手机发来的数据接进 NAS；CPU 处理这次上传任务，判断用户、决定存放位置和命名方式；RAM 在处理过程中暂存正在使用的数据；Storage 最后把照片长期保存下来。重启以后仍然能找到，说明照片最终保存在 Storage 上 —— 只有 Storage 具备断电后数据仍在的特点，如果只停留在 RAM 里，重启后就找不到了。",
+      "keyPoints": [
+        { "text": "指出 Network 负责把数据接收进 NAS", "required": true },
+        { "text": "指出 CPU 负责处理上传任务（判断用户、决定存放位置）", "required": true },
+        { "text": "指出 RAM 在处理过程中暂存正在使用的数据", "required": true },
+        { "text": "指出照片最终保存在 Storage，因此重启后仍能找到", "required": true },
+        { "text": "说明如果只在 RAM 中，重启后就找不到", "required": false }
+      ],
+      "domains": ["Hardware"],
+      "weight": 3
+    },
+    {
+      "id": "q9",
+      "type": "scenario",
+      "stem": "你从 NAS 往笔记本拷贝一个大文件，发现硬盘还有大量剩余空间，CPU 看起来也很空闲，但传输速度一直上不去。",
+      "prompt": "最可能和哪个部件有关？为什么另外两个部件不太可能是主要原因？",
+      "referenceAnswer": "最可能与 Network 有关。数据要从 NAS 送到笔记本，必须经过网络这一环，网络受限时，里面的部件再空闲也送不出去。Storage 不太可能是主因，因为硬盘还有大量剩余空间，说明容量不是问题，而且如果是它拖慢，通常会影响其他读写操作；CPU 也不太可能是主因，因为它本身很空闲，说明没有运算压力。这提醒我们：判断问题要看哪个部件正在被使用、被卡住，而不是默认怪 CPU。",
+      "keyPoints": [
+        { "text": "指出最可能与 Network 有关", "required": true },
+        { "text": "说明数据必须经过网络才能送到笔记本", "required": true },
+        { "text": "说明硬盘有剩余空间、CPU 空闲，因此不是它们受限", "required": true },
+        { "text": "强调不能默认把慢归因于 CPU", "required": false }
+      ],
+      "domains": ["Hardware"],
+      "weight": 3
+    },
+    {
+      "id": "q10",
+      "type": "scenario",
+      "stem": "家里突然停电，NAS 重启后，小李发现自己还没整理完的那批照片不见了，可上周已经备份好的照片一张都没少。",
+      "prompt": "请用四个硬件角色解释，为什么会有这样的差别？",
+      "referenceAnswer": "差别在于数据当时停留在哪个部件。还没整理完的照片，正处在处理过程中，相关数据主要在 RAM 这个临时工作区里，而 RAM 断电后内容通常会丢失，所以重启后就找不到了。已经备份好的照片，处理早已结束，被写进了 Storage，而 Storage 负责长期保存、断电后数据仍在，所以重启后一张都没少。这也说明「处理中」和「已保存」是两种状态，桌面和文件柜承担的是完全不同的职责。",
+      "keyPoints": [
+        { "text": "指出没整理完的照片当时主要在 RAM 中", "required": true },
+        { "text": "指出 RAM 断电后内容会丢失", "required": true },
+        { "text": "指出已备份的照片已写入 Storage，断电后仍在", "required": true },
+        { "text": "总结「处理中」与「已保存」是两种不同状态", "required": true }
+      ],
+      "domains": ["Hardware"],
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+name: Deploy to GitHub Pages
+
+# 启用前需要你做两件事：
+#   1. 建好 GitHub 仓库并把 main 推上去
+#   2. Settings → Pages → Source 选 “GitHub Actions”
+# base 路径在 docs/.vitepress/config.mts 里，必须与仓库名完全一致（区分大小写）。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # lastUpdated 需要完整历史才能取到每页的提交时间
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/configure-pages@v4
+
+      - run: npm ci
+
+      # 先校验题库：答案键格式有问题时给出一条清楚的报错，
+      # 而不是让 VitePress 抛一堆堆栈。
+      - run: npm run quiz:validate
+
+      - run: npm run docs:build
+
+      # 第二道防线：确认 private-notes/ 没有被构建进去
+      - run: npm run check:leak
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

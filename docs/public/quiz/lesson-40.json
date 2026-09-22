@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-40",
+  "week": 8,
+  "day": 5,
+  "title": "Compose 综合题",
+  "quizVersion": 1,
+  "domains": ["Docker", "Self-hosting"],
+  "recall": [
+    { "id": "r1", "stem": "从需求描述推出字段时，「数据要保存下来」「通过某个端口访问」分别对应哪个字段？" },
+    { "id": "r2", "stem": "把 docker run 命令翻译成 Compose 文件时，-p、-v、-e 分别变成什么？" },
+    { "id": "r3", "stem": "为什么 -d 在 Compose 文件里找不到对应写法？" },
+    { "id": "r4", "stem": "一份 Compose 文件不会回答哪几个问题？" },
+    { "id": "r5", "stem": "为什么「字段填齐了」不等于「部署完整了」？" }
+  ],
+  "summary": {
+    "id": "summary",
+    "stem": "用不超过 120 字说明：一份 Compose 文件能告诉你什么、不能告诉你什么？",
+    "maxChars": 120,
+    "referenceAnswer": "它能告诉你的是容器该怎么跑：用哪个镜像、从哪个端口访问、数据挂在宿主机哪个目录、启动时需要哪些设置。它不能告诉你的是：这个服务该不该对公网开放、数据由谁备份、备份放在哪里、密码存在这里是否安全、升级时会不会丢数据。前者是读文件的能力，后者是判断部署是否可靠的能力，两者都要有。",
+    "keyPoints": [
+      { "text": "能说明镜像、端口、数据目录、环境变量四件事", "required": true },
+      { "text": "不能回答公网开放、备份、凭据保管、升级风险", "required": true },
+      { "text": "区分「读文件」与「判断部署是否可靠」两种能力", "required": true },
+      { "text": "指出四个字段之外的信息需要自己判断", "required": false }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "stem": "需求里写着「数据必须保存下来，放在项目目录下的 data 里，容器内的位置是 /app/data」，对应的 Compose 写法是？",
+      "options": [
+        { "key": "A", "text": "volumes 下写 - /app/data:./data" },
+        { "key": "B", "text": "volumes 下写 - ./data:/app/data" },
+        { "key": "C", "text": "ports 下写 - \"data:/app/data\"" },
+        { "key": "D", "text": "environment 下写 - DATA_DIR=/app/data" }
+      ],
+      "answer": "B",
+      "explanation": "B 正确：挂载的写法是「宿主机路径:容器内路径」，也就是说需求里说的「项目目录下的 data」放在冒号左边，「容器内的 /app/data」放在冒号右边。A 把两侧读反了，那样会变成把容器里的目录挂到外面，路径根本不存在。C 用错了字段，ports 只写端口映射，不写目录。D 混淆了环境变量和目录挂载：environment 只是传给程序的设置，它不会创建任何持久化目录，写进去也不会让数据活下来。",
+      "distractors": {
+        "A": "把宿主机与容器路径写反",
+        "C": "把目录挂载错放进 ports 字段",
+        "D": "以为环境变量可以代替卷来持久化数据"
+      },
+      "domains": ["Docker"],
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "stem": "把 docker run 命令里的 -p 8080:80 翻译成 Compose 文件，正确的写法是？",
+      "options": [
+        { "key": "A", "text": "ports 下写一行 - 8080:80，含义与命令中完全一致" },
+        { "key": "B", "text": "ports 下写一行 - 80:8080" },
+        { "key": "C", "text": "environment 下写一行 - PORT=8080" },
+        { "key": "D", "text": "volumes 下写一行 - 8080:80" }
+      ],
+      "answer": "A",
+      "explanation": "A 正确：翻译规则是保持顺序不变，命令里 -p 后面是什么，ports 里就写什么，含义完全一致，都是「宿主机端口:容器端口」。B 把两侧调换了，那样访问端口就变成了 80。C 用错了字段，端口映射不是环境变量；虽然有些程序也支持用环境变量指定监听端口，但那和端口映射是两件事，不能互相替代。D 字段用错了，volumes 写的是目录路径，不是端口号。",
+      "distractors": {
+        "B": "翻译时把端口两侧调换",
+        "C": "把端口映射误当作环境变量",
+        "D": "把端口映射写进 volumes 字段"
+      },
+      "domains": ["Docker"],
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "stem": "从 docker run 翻译成 Compose 文件时，命令里的 -d 没有出现在结果里，说明翻译漏了一项。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误，这不是漏项。-d 表示让容器在后台运行，而 Compose 文件描述的服务默认就是在后台运行的，所以不需要额外写出来。这类「命令里有、文件里没有」的项在翻译时最容易让人困惑，遇到时应该先想清楚这一项在 Compose 里是不是已经成为默认行为，而不是急着补一个字段进去。反过来也有类似情况：有些 Compose 字段在命令里没有直接对应项，比如 restart 这类设置。判断依据是理解每一项在做什么，而不是机械地一一对应。",
+      "domains": ["Docker"],
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "stem": "如果把要公开的 Compose 文件里的密码写成了 CHANGE_ME 这样的占位符，就说明这个部署在凭据方面是安全的。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。占位符只说明「这个文件里没有真实凭据」，不代表凭据管理就是安全的。真实的值可能被放在别的地方，比如配置文件或环境变量文件里，而那个地方是否受保护、是否会被提交到仓库、是否有权限限制、备份时会不会一起泄露，都是另外的问题。还有一种情况是服务本身根本没有认证功能，那即使文件里什么凭据都没有，它依然是不安全的。判断凭据安全性，要看真实的值存在哪里、谁能读到、会不会进入公开范围，而不是只看文件里有没有出现密码。",
+      "domains": ["Docker", "Self-hosting"],
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "stem": "请说明为什么「从需求补齐字段」比「记住字段名称」更能体现是否读懂了 Compose。",
+      "referenceAnswer": "因为记住字段名称只需要记忆，而从需求推出字段需要理解这个字段在解决什么问题。举例来说，需求里写「数据要保存下来」，能补齐的人知道这意味着要写 volumes，并且知道冒号左边是宿主机上的目录、右边是容器内的路径 —— 他还知道为什么这一项能保证数据不随容器重建消失。而只记住字段名的人可能写出 volumes，却把两侧写反，或者把路径当成环境变量。再比如需求里写「有一个必填的口令」，这对应 environment，但补的时候还要知道值应该写成占位符而不是真实密码，这背后是安全习惯，不是字段名能覆盖的。所以补齐练习实际上是在考察三件事：能不能把需求翻译成正确的字段、能不能把每一侧的值填对、能不能意识到哪些地方需要额外判断。这三件事合起来，才是「读懂」的完整含义。",
+      "keyPoints": [
+        { "text": "补齐字段需要理解字段解决的问题，而不只是记忆名称", "required": true },
+        { "text": "举出把需求翻译为字段的具体例子", "required": true },
+        { "text": "指出除字段外还要填对每一侧的值与占位符习惯", "required": true },
+        { "text": "概括为「读懂」包含翻译、填值、额外判断三件事", "required": false }
+      ],
+      "domains": ["Docker"],
+      "weight": 2
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "stem": "拿到一份 Compose 文件之后，除了读懂字段，还应该主动问自己哪些问题？请至少说出三个并说明理由。",
+      "referenceAnswer": "至少应该问这几个问题。第一，这个服务有没有必要对公网开放？因为 Compose 文件只管容器怎么跑，不负责回答暴露范围，而一旦做了端口转发，这个服务就会被互联网上的所有人持续扫描到。第二，它的数据由谁备份、备份放在哪里？文件里的 volumes 只保证容器重建时数据还在，防不住硬盘损坏、误删和误操作，备份必须另外安排，并且要放在别的位置。第三，凭据存在哪里，是否安全？文件里出现的可能只是一个占位符或变量引用，真实的值放在哪、谁读得到、会不会被提交到公开仓库，都需要自己去确认；还要注意用于存放凭据的文件通常是纯文本，并没有加密。第四个可以问：升级的时候会不会丢数据、能不能退回去？新版本可能不可逆地改动数据结构，所以升级前要有可用的备份。这四个问题的共同点是：它们都不在 Compose 文件的描述范围内，但少了任何一项，部署都算不上可靠。",
+      "keyPoints": [
+        { "text": "这个问题该不该对公网开放，文件不负责回答", "required": true },
+        { "text": "数据由谁备份、备份放在哪里", "required": true },
+        { "text": "凭据存在哪里、是否会被公开或提交", "required": true },
+        { "text": "升级会不会丢数据、能否回退", "required": false }
+      ],
+      "domains": ["Docker", "Self-hosting"],
+      "weight": 2
+    },
+    {
+      "id": "q7",
+      "type": "scenario",
+      "stem": "给小齐一份不完整的模板和一段需求。\n\n需求：这是一个内部使用的书签服务，只在家庭局域网里使用。使用 example/bookmarks 这个程序，版本 2.3；通过 8090 端口访问；数据必须保存下来，放在项目目录下的 data 里，容器内的位置是 /app/data；有一个必填的设置，变量名是 ACCESS_TOKEN。\n\n模板：\nservices:\n  bookmarks:\n    image:\n    ports:\n    volumes:\n    environment:\n\n小齐说他打算把 ACCESS_TOKEN 填成自己常用的那串口令，反正只有自己看得见。",
+      "prompt": "请帮他补齐四个字段，说明每一条的依据，并评价他关于 ACCESS_TOKEN 的想法。",
+      "referenceAnswer": "补齐的结果是：image 写 example/bookmarks:2.3，依据是需求写明了程序名和版本，并且版本号要固定下来，不要省略标签，否则会退化成不指定版本、结果不可重复。ports 写一行 8090:8090，依据是需求说通过 8090 访问，所以冒号左边是 8090；需要说明的是，需求没有交代容器内部监听哪个端口，这里假设内外一致是一个便利的做法，但它是一个假设，正确的方式是查这个程序的文档确认，或者先按最可能的值试一次再看日志确认。volumes 写一行 ./data:/app/data，依据是「项目目录下的 data」对应冒号左边、「容器内的 /app/data」对应冒号右边。environment 写一行 ACCESS_TOKEN=CHANGE_ME，因为这是必填项，不能留空，但值要用占位符。关于他的想法：把真实口令写进 Compose 文件是不合适的，这类文件经常会被误传到公开仓库，而且会在被发现之前就被自动化工具扫走；正确做法是文件里保留占位符，真实的值放到单独的、不会提交的文件里，并且注意那个文件本身是纯文本、并没有加密，需要自己控制权限和备份范围。",
+      "keyPoints": [
+        { "text": "image 写 example/bookmarks:2.3 并说明要固定版本", "required": true },
+        { "text": "ports 写 8090:8090，并指出容器内端口是假设、需要核实", "required": true },
+        { "text": "volumes 写 ./data:/app/data，说明两侧分别是什么", "required": true },
+        { "text": "ACCESS_TOKEN 用占位符而非真实口令，并说明理由", "required": true }
+      ],
+      "domains": ["Docker", "Self-hosting"],
+      "weight": 3
+    },
+    {
+      "id": "q8",
+      "type": "scenario",
+      "stem": "小蒋拿到一份 Compose 文件：\n\nservices:\n  myapp:\n    image: example/myapp\n    ports:\n      - \"8080:80\"\n    volumes:\n      - ./data:/app/data\n    environment:\n      - DB_PASSWORD=hunter2\n    restart: unless-stopped\n\n他准备直接用它部署一个长期使用的服务。",
+      "prompt": "请找出这份文件里至少两处问题，说明为什么是问题，以及应该怎么改。",
+      "referenceAnswer": "第一处问题：image 只写了 example/myapp，没有写版本标签。不写标签等价于用了 latest，含义是「不指定具体版本」，后果是不可重复 —— 同一条描述在不同时间拉取可能得到不同的程序，重建之后行为可能莫名其妙地变了，出了问题也很难判断之前跑的到底是哪个版本。改法是固定一个明确的版本标签。第二处问题：DB_PASSWORD 直接写了具体值 hunter2，这是把真实密码写在了文件里。这类文件一旦被提交到公开仓库或贴进求助帖，密码就等于公开了，而自动化工具会持续扫描这类内容。改法是写成 DB_PASSWORD=CHANGE_ME 这样的占位符，真实的值放到单独的、不会被提交的文件里，并且注意那个文件本身没有加密，要自己控制权限。第三点不是一个错误但同样重要：这份文件完全没有交代这个服务是否对公网开放。Compose 文件本来就不负责回答这件事，但部署的人必须自己回答 —— 如果这个端口被转发到公网，那么一个带数据库密码的服务被暴露在外，风险要高得多，尤其它现在用的还是写死的密码。",
+      "keyPoints": [
+        { "text": "指出 image 未固定版本，后果是不可重复", "required": true },
+        { "text": "指出真实密码写进文件，有泄露风险，应改占位符", "required": true },
+        { "text": "说明密码真实值应放在不被提交的位置", "required": true },
+        { "text": "补充指出文件未回答是否对公网开放，需要部署者自己判断", "required": false }
+      ],
+      "domains": ["Docker", "Self-hosting"],
+      "weight": 3
+    },
+    {
+      "id": "q9",
+      "type": "scenario",
+      "stem": "小苏读到一份 README，里面只给了一条 docker run 命令，没有 Compose 文件。命令里有 --name notes、-p 8080:80、-v ./data:/app/data、-e APP_MODE=simple，最后是镜像 example/notes:1.0，还带了 -d。",
+      "prompt": "请说明他会得到一份什么样的 Compose 文件，并指出翻译过程中需要注意的地方。",
+      "referenceAnswer": "翻译的结果是：services 下面有一个名为 notes 的条目，里面的 image 写 example/notes:1.0，ports 写一行 8080:80，volumes 写一行 ./data:/app/data，environment 写一行 APP_MODE=simple。翻译规则是固定的：--name 决定服务名，-p 变成 ports 里的一行，-v 变成 volumes 里的一行，-e 变成 environment 里的一行，镜像名放在最后，写进 image。需要注意的地方有几处。第一，-d 不会出现在结果里，因为它表示后台运行，而 Compose 描述的服务默认就在后台运行，这不是漏项。第二，命令里 -p、-v 参数的顺序和含义要原样保留，尤其是 -p 8080:80 不能写成 80:8080，否则访问端口就变了。第三，命令里的相对路径 ./data 在 Compose 文件里的含义是「相对于这份 Compose 文件所在的目录」，所以文件放在哪个目录里，数据就会出现在那个目录下，位置要心里有数。第四，翻译完成后还要回到刚才那条命令的上下文里，确认 README 有没有提到其他必填项、数据目录或者访问方式，避免只翻译了命令却漏掉了说明文字里的信息。",
+      "keyPoints": [
+        { "text": "服务名来自 --name，image 写镜像名与版本", "required": true },
+        { "text": "ports、volumes、environment 分别对应 -p、-v、-e", "required": true },
+        { "text": "指出 -d 不需要翻译，因为 Compose 默认后台运行", "required": true },
+        { "text": "提醒相对路径以 Compose 文件所在目录为基准", "required": false }
+      ],
+      "domains": ["Docker"],
+      "weight": 3
+    },
+    {
+      "id": "q10",
+      "type": "scenario",
+      "stem": "本周结束时，小岑要口头讲述一次完整的 Compose 阅读与部署流程，讲给完全没接触过的同学听。",
+      "prompt": "请写出一份他应该讲到的要点提纲。",
+      "referenceAnswer": "提纲可以按这个顺序。第一，先说清 Compose 文件是什么：它把一长串 docker run 参数写成一份结构化清单，用 YAML 格式书写，YAML 靠缩进表示层级，services 下面的每个条目就是一个 Service，也就是一个容器该怎么运行的说明。第二，说出四个关键字段各回答什么问题：image 回答用什么程序，ports 回答从哪个地址访问、冒号左边是宿主机、右边是容器，volumes 回答数据存在宿主机哪个目录、同样左边是宿主机，environment 回答启动时需要哪些设置。第三，讲怎么从 README 找这四样东西：安装章节找镜像和端口，备份章节找数据目录，配置章节找必填变量；并且提醒教程里的 localhost 指的是运行程序那台机器，不是你的电脑。第四，讲容器的生命周期：停止和删除不是一回事，改了文件里的字段需要重新应用、容器会被重建，而重建不会带走 volumes 里的数据，所以升级前必须先备份，因为数据结构的变化回不去。第五，讲一次实际操作：用一个只有示例数据、不含任何凭据、只在局域网内部的服务练习，动手前先写下四个预测，动手后靠日志、浏览器访问和修改挂载文件来逐条验证。第六，也是最重要的收尾：说明这份文件没有回答什么 —— 该不该对公网开放、数据由谁备份、凭据存在哪里、升级会不会丢数据，这四个问题只能由部署的人自己回答。",
+      "keyPoints": [
+        { "text": "说明 Compose 文件是命令的另一种写法，YAML 靠缩进，Service 描述一个容器", "required": true },
+        { "text": "说明四个字段各回答什么问题及冒号两侧的含义", "required": true },
+        { "text": "说明生命周期与升级前必须备份的理由", "required": true },
+        { "text": "收尾指出文件没有回答公网开放、备份、凭据、升级风险", "required": true }
+      ],
+      "domains": ["Docker", "Self-hosting"],
+      "weight": 3
+    }
+  ]
+}

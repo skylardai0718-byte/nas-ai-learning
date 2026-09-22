@@ -1,0 +1,21 @@
+/* 中文正文行高比默认值略松，长段落更好读 */
+.vp-doc {
+  line-height: 1.8;
+}
+
+/* 课程里的 ASCII 关系图需要等宽且不换行 */
+.vp-doc div[class*='language-text'] pre,
+.vp-doc pre {
+  line-height: 1.55;
+}
+
+/* 表格在窄屏下允许横向滚动而不是挤压 */
+.vp-doc table {
+  display: block;
+  overflow-x: auto;
+}
+
+.nasai-skeleton {
+  padding: 1.5rem;
+  color: var(--vp-c-text-2);
+}

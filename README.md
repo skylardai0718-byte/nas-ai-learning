@@ -14,33 +14,65 @@
 
 ## 从这里开始
 
-1. [12 周学习地图](00-roadmap/learning-roadmap.md)
-2. [第一周详细计划](00-roadmap/week-01-plan.md)
-3. [第一课：NAS 本质上为什么是一台计算机？](01-computer-basics/lesson-01-why-nas-is-a-computer.md)
-4. [术语表](glossary/glossary.md)
+1. [12 周学习地图](docs/roadmap/index.md)
+2. [第一周详细计划](docs/roadmap/week-01.md)
+3. [第一课：NAS 本质上为什么是一台计算机？](docs/lessons/week-01-computer-map/lesson-01-why-nas-is-a-computer.md)
+4. [术语表](docs/glossary/glossary.md)
+
+## 在本地运行
+
+课程同时是一个可交互的学习站点：读课、答题、自动判分、进度追踪。
+
+```bash
+npm install
+npm run docs:dev      # 打开 http://localhost:5173/
+```
+
+其他命令：
+
+```bash
+npm run docs:build    # 生成静态站点到 docs/.vitepress/dist
+npm run docs:preview  # 预览生产构建（验证 base 路径和中文搜索要用这个）
+npm run quiz:validate # 校验题库格式，答案键写错时会报出来
+npm run check         # 校验题库 + 构建 + 检查私人笔记是否泄漏
+```
+
+> **本地进度与线上进度是分开的**
+> 学习进度存在浏览器的 localStorage 里，按来源隔离。`localhost:5173` 上做的题**不会**
+> 出现在 GitHub Pages 上，反之亦然。在[进度面板](docs/dashboard/index.md)里可以导出/导入。
 
 ## 仓库结构
 
 ```text
 nas-ai-learning/
-├─ 00-roadmap/          # 路线图与每周计划
-├─ 01-computer-basics/  # 计算机地图
-├─ 02-nas-basics/       # NAS 基础
-├─ 03-hardware/         # CPU、RAM、存储接口与扩展
-├─ 04-storage/          # 文件系统、存储池、RAID 与备份
-├─ 05-network/          # 家庭网络与远程访问
-├─ 06-linux/            # Self-hosting 所需的 Linux 基础
-├─ 07-docker/           # 容器与 Docker Compose
-├─ 08-self-hosting/     # 真实项目拆解与实践
-├─ 09-virtualization/   # VM、Hypervisor、Proxmox 与 KVM
-├─ 10-ai-basics/        # LLM 与推理基础
-├─ 11-ai-hardware/      # GPU、VRAM、量化与模型规模
-├─ 12-local-ai/         # Ollama、LM Studio、llama.cpp、Open WebUI
-├─ 13-ai-agent/         # Tools、Memory、RAG、MCP 与 Agent
-├─ quizzes/             # 阶段测试与综合题
-├─ glossary/            # 持续维护的术语表
-└─ private-notes/       # 本地私密记录，不进入 GitHub
+├─ docs/                          # 站点根目录（VitePress srcDir）
+│  ├─ .vitepress/
+│  │  ├─ config.mts               # base、中文搜索分词器、侧边栏
+│  │  ├─ sidebar.mts              # 从课件 frontmatter 生成侧边栏
+│  │  ├─ theme/                   # 布局插槽、答题组件、仪表盘组件
+│  │  └─ data/                    # 构建期数据加载器
+│  ├─ index.md                    # 首页
+│  ├─ roadmap/                    # 学习地图与每周计划
+│  ├─ lessons/week-NN-*/          # 60 个课件，每周一个目录
+│  ├─ glossary/                   # 术语表（表格即真相来源）
+│  ├─ dashboard/                  # 进度面板
+│  └─ public/quiz/                # 题库与参考答案，按需加载
+├─ scripts/                       # 题库校验、泄漏检查
+├─ private-notes/                 # 本地私密记录，不进入 GitHub，也不进站点
+└─ .github/workflows/             # 部署到 GitHub Pages
 ```
+
+`private-notes/` 位于 `docs/` **之外**，所以站点构建在物理上就碰不到它 ——
+不需要依靠排除规则。`npm run check:leak` 是第二道防线。
+
+## 关于课件
+
+每个课件遵循固定的 9 段结构：今天学习什么 → 为什么要学 → 小白解释 → 技术解释 →
+类比 → NAS 实际场景 → 常见误区 → 知识地图 → 复述题与测试题。
+
+题目和参考答案放在 `docs/public/quiz/lesson-NN.json`，与课件一一对应。
+**课件正文里不含题目**，因为答题器会渲染在页面底部，正文里再放一份就会重复显示。
+每课的 frontmatter 提供 `lessonId`、`week`、`day`、`domains`，侧边栏和进度统计都从它读取。
 
 ## 隐私原则
 
@@ -50,6 +82,10 @@ nas-ai-learning/
 
 ## 当前进度
 
-- 当前阶段：Phase 0 — 计算机地图
-- 当前课程：Lesson 1 — NAS 本质上为什么是一台计算机？
-- 状态：课程已准备，等待学习、复述与答题
+- 当前阶段：全部 12 周内容已生成完毕
+- 已完成内容：Week 1–12 各 5 课，共 60 课，连同 60 份题库与 12 份周计划全部就绪
+- 状态：可完整学习、答题、周测；术语表收录 128 条
+
+后续修订按「学完一周再改下一周」的节奏推进：内容已全部产出，但难度和风格
+应在实际学习后按反馈调整。如果你在某一周发现讲得太浅或太深，告诉我具体是哪一课、
+哪一段，我按你的反馈修订，而不是整周重写。

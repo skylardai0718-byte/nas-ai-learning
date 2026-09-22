@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-09",
+  "week": 2,
+  "day": 4,
+  "title": "存储的介质、连接方式与外形",
+  "quizVersion": 1,
+  "domains": ["Hardware", "Storage"],
+  "recall": [
+    { "id": "r1", "stem": "存储的三个维度分别是什么？各包含哪些常见名词？" },
+    { "id": "r2", "stem": "为什么说「M.2 就是 NVMe」不准确？" },
+    { "id": "r3", "stem": "HDD 和 SSD 在读写特性上有什么主要差别？原因是什么？" },
+    { "id": "r4", "stem": "为什么 NAS 常常是「SSD 装系统、HDD 存数据」？" },
+    {
+      "id": "r5",
+      "stem": "买硬盘时只看容量会有什么问题？还需要确认什么？"
+    }
+  ],
+  "summary": {
+    "id": "summary",
+    "stem": "用不超过 120 字说明：判断一块硬盘适不适合你的 NAS，需要确认哪几件事？",
+    "maxChars": 120,
+    "referenceAnswer": "先看物理条件：外形规格能不能装进盘位（3.5 寸、2.5 寸还是 M.2），接口类型主板是否支持。再看速度定位：走 SATA 还是 NVMe、M.2 是哪种。最后看用途：系统盘需要随机读写能力，选 SSD；影音归档以顺序读取为主、容量成本更敏感，选 HDD。容量只是其中一项。",
+    "keyPoints": [
+      { "text": "确认外形规格能否装进盘位", "required": true },
+      { "text": "确认接口类型主板是否支持", "required": true },
+      { "text": "根据用途选择介质（系统盘 SSD、归档 HDD）", "required": true },
+      { "text": "指出容量只是其中一项", "required": false }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "stem": "关于「M.2」，下列哪一项理解是正确的？",
+      "options": [
+        { "key": "A", "text": "M.2 是一种连接方式，速度一定比 SATA 快" },
+        { "key": "B", "text": "M.2 是一种外形规格，里面可能是 NVMe，也可能是 SATA" },
+        { "key": "C", "text": "M.2 是一种存储介质，和 HDD、SSD 并列" },
+        { "key": "D", "text": "M.2 是 SSD 的另一个名字" }
+      ],
+      "answer": "B",
+      "explanation": "B 正确：M.2 定义的是板卡的物理形状和接口外形，它本身不决定速度。同一个 M.2 插槽里可能装 NVMe 硬盘（走 PCIe，速度快），也可能装 SATA 硬盘（走 SATA，速度受限制）。A 把外形当成了连接方式，还附加了「一定更快」的错误结论；C 把外形规格和介质混为一谈；D 把外形与介质画了等号。",
+      "distractors": {
+        "A": "误区一 —— 把 M.2 当成了速度指标",
+        "C": "把外形规格误当成存储介质",
+        "D": "把 M.2 与 SSD 直接等同"
+      },
+      "domains": ["Hardware", "Storage"],
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "stem": "「2.5 寸 SATA SSD」这三个部分分别属于哪个维度？",
+      "options": [
+        { "key": "A", "text": "介质 / 连接方式 / 外形规格" },
+        { "key": "B", "text": "外形规格 / 连接方式 / 介质" },
+        { "key": "C", "text": "连接方式 / 介质 / 外形规格" },
+        { "key": "D", "text": "外形规格 / 介质 / 连接方式" }
+      ],
+      "answer": "B",
+      "explanation": "2.5 寸是外形规格（它长什么样子），SATA 是连接方式（数据怎么传），SSD 是介质（数据存在什么上）。这三个维度互相独立，任何一块硬盘都同时具备这三种属性。能随时拆开这类规格串，就说明这三个维度的区分真正建立起来了。",
+      "distractors": {
+        "A": "把三个维度的顺序整体错位",
+        "C": "把连接方式和介质的位置对调",
+        "D": "把连接方式与介质的位置对调"
+      },
+      "domains": ["Hardware", "Storage"],
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "stem": "M.2 接口的硬盘一定是 NVMe，速度一定比 SATA 硬盘快。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。M.2 只是一种外形规格，里面既可能是 NVMe（走 PCIe，速度快），也可能是 SATA（走 SATA，速度受限制）。同名外形下速度可能差好几倍，所以看到 M.2 必须继续确认后面跟的是 SATA 还是 NVMe。",
+      "domains": ["Hardware", "Storage"],
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "stem": "SATA 是一种成熟且兼容性很好的存储连接方式，但它的带宽上限会限制 SSD 的性能发挥。",
+      "answer": true,
+      "requiresReason": true,
+      "explanation": "正确。SATA 出现早、兼容性好，HDD 和部分 SSD 都用它。但它有明确的带宽上限，而 SSD 本身的能力往往高于这个上限，所以走 SATA 的 SSD 无法发挥全部性能 —— 就像跑车开在限速很低的老路上。这正是 NVMe 被设计出来的原因之一。",
+      "domains": ["Hardware", "Storage"],
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "stem": "HDD 和 SSD 的主要差别有哪些？请说明这些差别背后的原因。",
+      "hint": "请从机械结构的角度解释性能差异，并说明两种介质各自的代价。",
+      "referenceAnswer": "主要差别有四点。速度上，SSD 的随机读写远快于 HDD，因为 HDD 需要移动磁头、等待盘片转到正确位置，这是机械动作，而 SSD 直接寻址闪存芯片，没有机械延迟；顺序读写时 HDD 表现尚可，因为它可以连续读取。静音与抗震上，SSD 无机械部件所以完全静音、抗震性好，HDD 有转动部件、怕震动。功耗上 SSD 通常更低。代价方面：SSD 每 TB 成本显著高于 HDD，且有闪存写入寿命限制；HDD 则在容量成本上占绝对优势，适合大容量长期存储。另外两者的故障模式不同 —— HDD 损坏常有异响或坏道等前兆，SSD 有时会突然完全失效。所以两者通常是搭配使用，而不是互相替代。",
+      "keyPoints": [
+        { "text": "SSD 随机读写快，HDD 需移动磁头存在机械延迟", "required": true },
+        { "text": "SSD 静音抗震、功耗低，HDD 有机械部件怕震动", "required": true },
+        { "text": "HDD 每 TB 成本低，SSD 单价高且有写入寿命限制", "required": true },
+        { "text": "指出两者故障模式不同，或结论是搭配使用而非替代", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 2
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "stem": "为什么 NAS 常见的配置是「SSD 装系统、HDD 存数据」？请从读写特性的角度说明。",
+      "referenceAnswer": "因为这两类工作对存储的需求不同。系统盘和应用要处理的是大量小文件的随机读写：开机加载系统、启动 Docker 容器、数据库查询，这些操作数据量小但访问位置分散，正是 HDD 最不擅长的场景 —— 磁头需要反复移动定位。SSD 没有机械延迟，在这类操作上优势明显，能显著提升系统响应和应用启动速度。而照片库、影音库这类数据的特点是总量大、读取以顺序为主：播放电影是连续读取，HDD 完全能够胜任，而每 TB 成本远低于 SSD。所以把两者按用途分开，既得到了系统盘的响应速度，又保住了数据盘的容量成本，是性价比最高的组合。全用 SSD 成本过高，全用 HDD 则系统体验会明显变慢。",
+      "keyPoints": [
+        { "text": "系统与应用属于小文件随机读写密集场景", "required": true },
+        { "text": "随机读写正是 HDD 的弱项、SSD 的强项", "required": true },
+        { "text": "照片影音以顺序读取为主、总量大", "required": true },
+        { "text": "指出 HDD 在容量成本上的优势，或说明全 SSD / 全 HDD 的问题", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 2
+    },
+    {
+      "id": "q7",
+      "type": "scenario",
+      "stem": "小张想给 NAS 扩容量，主要用来存放家庭影音库，预计需要 20TB。他看到一块 4TB 的 M.2 NVMe SSD 正在打折，价格和一块 20TB 的 HDD 差不多。",
+      "prompt": "你会建议他买哪一块？请从用途、容量和物理条件的角度说明理由。",
+      "referenceAnswer": "建议选 20TB 的 HDD。理由有三层。第一是用途：影音播放是典型的顺序读取，HDD 表现完全够用，而 NVMe 的随机读写优势在这个场景里几乎用不上 —— 花高价买了用不到的能力。第二是容量与成本：他需要 20TB，4TB 的 SSD 远远不够，要达到同样容量需要买五块 SSD，成本会高出数倍，而 HDD 在这个容量段每 TB 成本最低。第三是物理条件：还要确认这块硬盘能装进现有的盘位 —— 3.5 寸 HDD 需要 3.5 寸盘位或支架，而 M.2 需要主板有空闲的 M.2 槽位。如果 NAS 只有盘位没有 M.2 插槽，那 SSD 根本装不上。SSD 更适合作为系统盘去提升响应速度，而不是用来堆容量。",
+      "keyPoints": [
+        { "text": "建议选 HDD", "required": true },
+        { "text": "影音以顺序读取为主，NVMe 的随机读写优势用不上", "required": true },
+        { "text": "4TB 远不能满足 20TB 需求，且 SSD 每 TB 成本高", "required": true },
+        { "text": "提到要确认盘位与接口等物理条件是否满足", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    },
+    {
+      "id": "q8",
+      "type": "scenario",
+      "stem": "一台 NAS 的规格写：「2×SATA（支持 2.5/3.5 寸）+ 1×M.2 SATA」。用户想加一块高速系统盘。",
+      "prompt": "这个 M.2 插槽能达到他期望的速度吗？请说明原因。",
+      "referenceAnswer": "不能达到高速的期望。关键在规格里的「M.2 SATA」：这个插槽虽然是 M.2 外形，但走的是 SATA 通道，速度受 SATA 上限限制，和 M.2 NVMe 完全不同 —— 外形一样，速度差好几倍。所以插进去的硬盘即便是 NVMe 型号也无法发挥，因为它只能按 SATA 方式工作（部分插槽甚至只认 M.2 SATA 硬盘，插 NVMe 直接不识别）。他有两个方向：一是接受现状，即便走 SATA，SSD 相比机械硬盘在随机读写上仍有明显提升，做系统盘体验还是好的；二是如果确实需要高速，就得确认这台 NAS 是否有其他 NVMe 插槽，或者考虑换一台支持 M.2 NVMe 的机型。判断依据始终是：外形（M.2）不等于连接方式（SATA / NVMe）。",
+      "keyPoints": [
+        { "text": "指出关键是「M.2 SATA」走的是 SATA 通道，速度受限", "required": true },
+        { "text": "明确 M.2 外形不等于 NVMe 连接方式", "required": true },
+        { "text": "指出 SSD 即便走 SATA 也仍比机械硬盘有提升", "required": false },
+        { "text": "给出方向：确认是否有其他 NVMe 插槽或换机型", "required": true }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    },
+    {
+      "id": "q9",
+      "type": "scenario",
+      "stem": "小王准备买硬盘，看到两块盘：一块 8TB 的 HDD，一块 4TB 的 SSD，价格接近。",
+      "prompt": "在做决定之前，他至少需要确认哪几件事？请按重要性排序并说明理由。",
+      "referenceAnswer": "应该先确认物理条件，再谈用途和性能。第一步，确认 NAS 的盘位是什么外形：3.5 寸、2.5 寸还是 M.2。买错外形直接装不上，容量和速度都无从谈起 —— 这是最硬的约束。第二步，确认接口是否支持：SATA 还是 NVMe，走 SATA 的 SSD 速度会被限制。第三步，明确用途：如果是系统盘和容器运行，SSD 的随机读写提升明显；如果是影音归档，HDD 的容量成本优势更大。第四步，评估容量是否满足需求 —— 这里 8TB 和 4TB 差一倍，影音库这类大容量场景下 SSD 的容量可能根本不够。顺序不能颠倒：先满足「能不能装、能不能认」，再看「够不够快、够不够大」。这也回扣了本周的核心判断习惯：规格要逐项拆开看，不能只看某一个吸引人的数字。",
+      "keyPoints": [
+        { "text": "先确认盘位外形规格能否安装", "required": true },
+        { "text": "确认接口类型（SATA / NVMe）是否支持", "required": true },
+        { "text": "根据用途判断该优先速度还是容量成本", "required": true },
+        { "text": "指出容量差距（8TB vs 4TB）对影音库这类场景是决定性的", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    },
+    {
+      "id": "q10",
+      "type": "scenario",
+      "stem": "请把下面这些词按「介质 / 连接方式 / 外形规格」三个维度分类：HDD、SATA、M.2、SSD、NVMe、3.5 寸、2.5 寸。",
+      "prompt": "分类完成后，用其中三个词各组成一块硬盘的完整描述，并说明它适合用在 NAS 的什么位置。",
+      "referenceAnswer": "分类：介质 —— HDD、SSD；连接方式 —— SATA、NVMe；外形规格 —— M.2、3.5 寸、2.5 寸。组合示例一：3.5 寸 SATA HDD —— 外形 3.5 寸、连接 SATA、介质机械盘，容量大单价低，适合作为 NAS 的数据盘存放照片和影音库，缺点是随机读写慢、有噪音。组合示例二：M.2 NVMe SSD —— 外形 M.2、连接 NVMe、介质固态，速度快、无噪音，适合作为系统盘或缓存盘，缺点是单价高、容量偏小。组合示例三：2.5 寸 SATA SSD —— 外形 2.5 寸、连接 SATA、介质固态，速度受 SATA 上限限制，适合盘位只有 2.5 寸的老设备或笔记本改装的 NAS。这三组描述说明同一件事：三个维度互相独立，只有全部确认，才能判断一块硬盘适不适合你的设备。",
+      "keyPoints": [
+        { "text": "介质分类正确：HDD、SSD", "required": true },
+        { "text": "连接方式分类正确：SATA、NVMe", "required": true },
+        { "text": "外形规格分类正确：M.2、3.5 寸、2.5 寸", "required": true },
+        { "text": "给出至少一个完整的硬盘描述并说明适用位置", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    }
+  ]
+}

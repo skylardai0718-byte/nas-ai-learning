@@ -7,3 +7,8 @@
 !.env.example
 .DS_Store
 Thumbs.db
+
+# Build tooling.
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/

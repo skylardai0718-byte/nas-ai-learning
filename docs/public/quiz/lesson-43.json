@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-43",
+  "week": 9,
+  "day": 3,
+  "title": "Pi-hole、Immich 与 Tailscale",
+  "quizVersion": 1,
+  "domains": ["Self-hosting", "Docker"],
+  "recall": [
+    { "id": "r1", "stem": "Pi-hole 在哪一层工作？它靠什么方式拦截广告？" },
+    { "id": "r2", "stem": "Immich 为什么不是一个容器，而是一组容器？" },
+    { "id": "r3", "stem": "为什么用「服务」的框架去看 Tailscale 会觉得别扭？" },
+    { "id": "r4", "stem": "Immich 的数据分哪三块？为什么三块都要备份？" },
+    { "id": "r5", "stem": "Pi-hole、Immich、Tailscale 各自接触哪些隐私数据？" }
+  ],
+  "summary": {
+    "id": "summary",
+    "stem": "用不超过 120 字说明：Pi-hole、Immich、Tailscale 分别在哪一层起作用，这说明了六问法的什么特点？",
+    "maxChars": 120,
+    "referenceAnswer": "Pi-hole 在网络层，它本身是 DNS 服务，靠拦掉广告域名的解析来拦截广告，影响整个网络。Immich 在应用层，它是由多个容器组成的照片备份服务，Docker 是它工作的前提。Tailscale 是通道层，它本身不是被访问的服务，而是安全访问内网的通道，装在每台设备上。这说明六问法是通用框架，但答案因服务而异 —— 层次不同，答案差别很大，这恰恰是框架的价值。",
+    "keyPoints": [
+      { "text": "Pi-hole 在网络层，通过 DNS 拦截广告，影响全网", "required": true },
+      { "text": "Immich 在应用层，由多个容器组成，Docker 是前提", "required": true },
+      { "text": "Tailscale 是通道层，装在每台设备上，本身不是被访问的服务", "required": true },
+      { "text": "说明六问法框架通用但答案因服务而异", "required": false }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "stem": "Pi-hole 拦截广告的方式是下列哪一种？",
+      "options": [
+        { "key": "A", "text": "在浏览器里屏蔽广告元素" },
+        { "key": "B", "text": "拦截 DNS 查询，让设备找不到广告服务器的地址" },
+        { "key": "C", "text": "过滤网页内容，把广告文字删掉" },
+        { "key": "D", "text": "限制设备的上网速度" }
+      ],
+      "answer": "B",
+      "explanation": "B 正确。Pi-hole 在网络层工作，它冒充家里的 DNS 服务：设备要访问广告域名时，它回一个「查无此址」，设备压根找不到广告服务器，广告自然显示不出来。A 描述的是浏览器插件式的拦截，只影响一个浏览器；C 是内容过滤，不是 Pi-hole 的做法；D 与广告拦截无关。Pi-hole 的关键特点是影响整个网络的所有设备，而不是单台设备或单个浏览器。",
+      "distractors": {
+        "A": "把网络层拦截误当成了浏览器插件式拦截",
+        "C": "把 DNS 拦截误当成了内容过滤",
+        "D": "把广告拦截与限速混为一谈"
+      },
+      "domains": ["Self-hosting"],
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "stem": "为什么说 Immich 的部署离不开 Docker？",
+      "options": [
+        { "key": "A", "text": "因为 Immich 的界面只能在容器里显示" },
+        { "key": "B", "text": "因为它由多个协同工作的容器组成，Docker 是它正常工作的前提" },
+        { "key": "C", "text": "因为不用 Docker 就无法备份照片" },
+        { "key": "D", "text": "因为 Docker 能让照片自动加密" }
+      ],
+      "answer": "B",
+      "explanation": "B 正确。Immich 不是单个容器，而是由负责网页界面、数据库、图片处理等多个容器协同组成，所以 Docker 对它是「工作前提」，而不是可选的部署方式。A 和 C 都是凭空加上的因果关系；D 与事实不符，Docker 不会自动给照片加密。理解这一点，才能明白为什么分析 Immich 时第⑥问的答案和别的服务不同。",
+      "distractors": {
+        "A": "编造了界面只能容器显示的因果关系",
+        "C": "把备份能力错误地归因于 Docker",
+        "D": "把加密功能错误地归因于 Docker"
+      },
+      "domains": ["Self-hosting", "Docker"],
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "stem": "Tailscale 是一个需要专门跑在 NAS 上的服务程序。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。Tailscale 是装在每一台需要联网的设备上的客户端，它提供的是一条访问内网的通道，而不是「住在 NAS 里的服务」。只装在 NAS 上，你的手机等设备照样进不来。用「服务」的框架去看它会觉得别扭，正因为它的性质是「通道」，所以问它「数据存在哪里」「怎么联网访问」时，答案和别的服务很不一样。",
+      "domains": ["Self-hosting"],
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "stem": "删掉 Immich 的容器，照片原件就会一起丢失。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "不完全对，但不能因此放心。照片原件通常是挂载在容器之外的存储上，删除容器不会影响它；但数据库和缩略图如果没有做持久化和备份，就会随容器一起消失 —— 表现为照片还在，但时间线、人脸、浏览体验都没了。所以正确的说法是：照片原件可能还在，但不代表什么都没丢，Immich 的三块数据都要分别备份。",
+      "domains": ["Self-hosting", "Docker"],
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "stem": "请分别说明 Pi-hole、Immich、Tailscale 在系统的哪一层起作用，并解释这为什么说明六问法「框架通用、答案不同」。",
+      "hint": "注意 Pi-hole 是 DNS 服务、Immich 是多容器的应用、Tailscale 是通道。",
+      "referenceAnswer": "三个服务分别在不同层次起作用：Pi-hole 在网络层，它本身就是一个 DNS 服务，设备把 DNS 指向它之后，它通过拦掉广告域名的解析来拦截广告，因此影响的是整个网络的所有设备。Immich 在应用层，它是一个照片与视频备份服务，由多个容器协同工作，Docker 是它正常工作的前提。Tailscale 在通道层，它本身不是被访问的服务，而是让外部设备安全接入内网的通道，要装在每一台需要联网的设备上。这说明了六问法的特点：框架是通用的 —— 任何 Self-hosted 项目都可以用同样六个问题去问；但答案可以完全不同 —— 三个服务在「怎么联网访问」「数据存在哪里」「Docker 起什么作用」上的答案差异巨大，甚至 Tailscale 的两问答案几乎重叠。这种差异不是框架的缺陷，而是它的价值：同一个路径，逼出每个服务真实的样子。",
+      "keyPoints": [
+        { "text": "Pi-hole 在网络层，是 DNS 服务，影响全网", "required": true },
+        { "text": "Immich 在应用层，由多个容器组成", "required": true },
+        { "text": "Tailscale 在通道层，装在每台设备上", "required": true },
+        { "text": "说明六问法框架通用但答案因服务而异", "required": true }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 2
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "stem": "请说明 Pi-hole 影响范围的特殊性：为什么它的故障会波及整个网络？配置前应该做什么准备？",
+      "referenceAnswer": "Pi-hole 的特殊性在于它在网络层工作 —— 它本身是全家设备的 DNS 服务，所以设备要上网，都要先经过它解析域名。一旦 Pi-hole 出问题，所有设备的域名解析都会失败，表现为「大家都上不了网」，而不是单个服务中断。典型场景是：装了 Pi-hole 结果全家断网。配置前的准备包括：第一，意识到它的故障影响范围是全网，不是单台设备；第二，给设备保留一个备用 DNS（比如在路由器或设备上设置第二个 DNS 服务器），这样即使 Pi-hole 挂了，也能正常上网；第三，确认 Pi-hole 所在机器稳定运行、离网络入口足够近，因为它是 DNS 服务，位置和可用性都关键。理解它在网络层，才能预判它的影响范围和风险。",
+      "keyPoints": [
+        { "text": "Pi-hole 是全家 DNS，故障会影响整个网络的解析", "required": true },
+        { "text": "表现为所有设备都上不了网，而非单个服务中断", "required": true },
+        { "text": "建议保留备用 DNS，避免 Pi-hole 故障导致全网断网", "required": true },
+        { "text": "指出它作为 DNS 服务，位置和可用性都关键", "required": false }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 2
+    },
+    {
+      "id": "q7",
+      "type": "scenario",
+      "stem": "小刘在家里部署了 Pi-hole 做广告拦截。第二天家人反映「所有设备都上不了网了」，但小刘自己重启了路由器也没用。",
+      "prompt": "请分析问题最可能出在哪里，并给出排查和处理方向。",
+      "referenceAnswer": "问题很可能出在 Pi-hole 上。因为 Pi-hole 是本地的 DNS 服务，全家的设备都要先通过它解析域名才能上网；一旦 Pi-hole 停止工作或配置出错，所有设备的域名解析都会失败，表现就是全家都上不了网 —— 这与「某个网站打不开」不同，是全面的上网故障。排查方向：先确认 Pi-hole 所在的机器是否在运行；再确认 Pi-hole 服务本身是否正常；然后确认设备指向的 DNS 地址是否正确。处理方式：如果暂时修不好，可以先把设备的 DNS 改回路由器或公共 DNS，恢复上网；长期方案是给设备配置一个备用 DNS，这样 Pi-hole 故障时不会全网瘫痪。这个案例说明：在网络层工作的服务，故障影响范围是全网，而不是单台设备。",
+      "keyPoints": [
+        { "text": "指出 Pi-hole 作为 DNS 故障会导致全网无法解析域名", "required": true },
+        { "text": "给出排查方向：确认机器和 Pi-hole 服务是否运行", "required": true },
+        { "text": "指出可临时改回其他 DNS 恢复上网", "required": true },
+        { "text": "建议长期配置备用 DNS，避免单点故障", "required": false }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 3
+    },
+    {
+      "id": "q8",
+      "type": "scenario",
+      "stem": "小赵在家里用 Immich 备份手机照片。他计划把照片目录挂载到 NAS 的大容量存储上，然后就放心了，认为数据不会丢。",
+      "prompt": "请评价他的计划，并说明还漏了什么。",
+      "referenceAnswer": "他的计划只做对了一部分。挂载照片目录到大容量存储，确实能保证照片原件不会因为删除容器而丢失 —— 这是必要的。但 Immich 的数据分三块：照片原件、数据库、缩略图。数据库记录了相册结构、用户、时间线、人脸等信息，缩略图是浏览时用的预览图。如果只挂载了照片原件，而数据库和缩略图没有持久化，那么删掉容器重装后，照片虽然还在，但相册结构、时间线、人脸识别结果都会消失，浏览体验大打折扣。所以正确做法是：三块数据都要做持久化挂载，并且要定期备份数据库和缩略图目录。这说明用六问法分析时，「数据存在哪里」这一问必须问全，不能只想到体积最大的那一块。",
+      "keyPoints": [
+        { "text": "肯定挂载照片原件能保护原始照片", "required": true },
+        { "text": "指出 Immich 数据分原件、数据库、缩略图三块", "required": true },
+        { "text": "指出数据库和缩略图也需要持久化和备份", "required": true },
+        { "text": "总结「数据存在哪里」要问全，不能只看最大的一块", "required": false }
+      ],
+      "domains": ["Self-hosting", "Docker"],
+      "weight": 3
+    },
+    {
+      "id": "q9",
+      "type": "scenario",
+      "stem": "小孙想在 NAS 上装 Tailscale，让手机在外面也能访问家里的服务。他只在 NAS 上装了 Tailscale 客户端就出门了，结果发现手机还是访问不了。",
+      "prompt": "请解释原因，并说明 Tailscale 的正确理解方式。",
+      "referenceAnswer": "原因是他只在 NAS 上装了 Tailscale，而手机端没有装。Tailscale 的本质是一条访问通道，不是「住在 NAS 里的服务」—— 它需要装在每一台要参与这个私有网络的设备上。只装在 NAS 上，手机根本没有进入这条通道，自然访问不了。正确理解方式：把 Tailscale 看成「把设备接进同一个虚拟私有网络」的方式，参与的两端（手机和 NAS）都要安装客户端并登录同一个账号，之后它们之间才能自动建立加密连接。这也说明用「服务」的框架去看 Tailscale 会别扭：普通服务是「跑在 NAS 上、你去访问它」，而 Tailscale 是「装在每台设备上、它让你能访问别的设备」，它的「运行在哪里」和「怎么联网访问」两问的答案几乎是同一个。",
+      "keyPoints": [
+        { "text": "指出手机端没有安装 Tailscale 客户端", "required": true },
+        { "text": "说明 Tailscale 需要装在每一台参与的设备上", "required": true },
+        { "text": "解释它是访问通道，不是跑在 NAS 上的服务", "required": true },
+        { "text": "指出两端都要登录同一账号才能建立连接", "required": false }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 3
+    },
+    {
+      "id": "q10",
+      "type": "scenario",
+      "stem": "小周想把自己的 Self-hosting 使用记录发到网上，内容包括 Pi-hole 的查询日志、Immich 的相册截图和 Tailscale 的配置信息。",
+      "prompt": "请说明哪些内容应该处理掉或替换，以及为什么这些数据需要特别小心。",
+      "referenceAnswer": "这三类内容都需要处理。Pi-hole 的查询日志记录了全家设备访问过的域名，暴露的是每个人的上网习惯和设备清单，应该删掉或改用示例数据。Immich 的相册截图是私人照片，包含人脸、地点、生活场景，绝不能公开，可以用占位图或纯结构示意图代替。Tailscale 的配置信息包含登录密钥和设备网络拓扑，公开后会直接威胁网络安全，应该完全删除。需要特别小心的原因是：这三类数据都不是「无关紧要的技术参数」，而是生活痕迹和安全凭据 —— Pi-hole 记录习惯、Immich 存的是私人物品、Tailscale 关乎进出通道。公开时应遵循的原则和前几周一致：只写原理和结构，用示例代替真实内容，不贴真实的日志、照片和设备信息。",
+      "keyPoints": [
+        { "text": "Pi-hole 查询日志暴露上网习惯和设备清单，应删除或改用示例", "required": true },
+        { "text": "Immich 相册是私人照片，绝不应公开", "required": true },
+        { "text": "Tailscale 配置含密钥和拓扑，公开会威胁网络安全", "required": true },
+        { "text": "概括原则：写原理和结构，用示例代替真实内容", "required": false }
+      ],
+      "domains": ["Self-hosting"],
+      "weight": 3
+    }
+  ]
+}

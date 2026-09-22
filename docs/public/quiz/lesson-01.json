@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-01",
+  "week": 1,
+  "day": 1,
+  "title": "NAS 本质上为什么是一台计算机？",
+  "quizVersion": 1,
+  "domains": ["Hardware", "Storage"],
+  "recall": [
+    { "id": "r1", "stem": "为什么说 NAS 不是一个简单的大硬盘？" },
+    { "id": "r2", "stem": "一台 NAS 的硬件、操作系统和应用分别负责什么？" },
+    { "id": "r3", "stem": "为什么 NAS 没有显示器和键盘，仍然可以是一台计算机？" },
+    { "id": "r4", "stem": "为什么旧电脑经过改造后，也可能成为 NAS？" },
+    {
+      "id": "r5",
+      "stem": "如果文件共享正常，但 Immich 无法打开，你会先从哪一层理解这个问题？为什么？"
+    }
+  ],
+  "summary": {
+    "id": "summary",
+    "stem": "用不超过 100 字回答：NAS 本质上为什么是一台计算机？",
+    "maxChars": 100,
+    "referenceAnswer": "NAS 之所以是一台计算机，不在于外形像电脑，而在于它同样拥有硬件、操作系统和应用三层，能按照程序接收、处理、保存并提供数据。它只是把主要用途放在了网络存储和相关服务上。",
+    "keyPoints": [
+      { "text": "提到硬件、操作系统、应用三层结构", "required": true },
+      { "text": "提到能按程序处理、保存并提供数据", "required": true },
+      { "text": "指出关键不是外形像不像电脑", "required": false }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "stem": "下列哪一项最准确地描述了 NAS？",
+      "options": [
+        { "key": "A", "text": "一块容量特别大的硬盘" },
+        { "key": "B", "text": "一台只能用来备份照片的设备" },
+        { "key": "C", "text": "一台通过网络提供存储和相关服务的计算机系统" },
+        { "key": "D", "text": "一台没有显示器的普通台式电脑" }
+      ],
+      "answer": "C",
+      "explanation": "C 同时说出了「联网」和「计算机系统」两个要点。A 只说到硬件部件，D 把「没有显示器」当成一种缺陷，而显示器并不是计算机成立的必要条件，B 则把用途窄化成了单一功能。",
+      "distractors": {
+        "A": "误区一 —— NAS 就是一个大硬盘",
+        "D": "误区二 —— 没有显示器就不是计算机",
+        "B": "把 NAS 的众多用途缩减成了其中一种"
+      },
+      "domains": ["Hardware", "Storage"],
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "stem": "下列哪一个顺序最符合本课建立的分层关系？",
+      "options": [
+        { "key": "A", "text": "硬件 → 操作系统 → 应用" },
+        { "key": "B", "text": "应用 → 硬件 → 操作系统" },
+        { "key": "C", "text": "操作系统 → 应用 → 硬件" },
+        { "key": "D", "text": "硬件 → 应用 → 操作系统" }
+      ],
+      "answer": "A",
+      "explanation": "开机时是硬件先就绪，操作系统再启动，最后才轮到应用；使用时方向相反（用户 → 应用 → 操作系统 → 硬件），但构成的层次不变。",
+      "distractors": {
+        "B": "把使用时的方向当成了层次结构",
+        "C": "把操作系统放在了应用之上",
+        "D": "漏掉了操作系统在中间起的作用"
+      },
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "stem": "NAS 没有长期连接显示器和键盘，所以它不属于计算机。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。显示器、键盘只是输入输出设备，不是计算机成立的必要条件。手机、路由器、智能电视同样常年不接显示器和键盘，但都是计算机。判定的关键是能否按程序接收、处理、保存和输出数据。",
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "stem": "只要文件已经放在 NAS 中，就一定拥有了可靠的备份。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。把唯一一份文件移动到 NAS，只是换了个存放位置，不是备份。RAID、快照、备份和同步解决的是不同问题，这部分会在第 3 周专门学习。",
+      "domains": ["Storage"],
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "stem": "硬盘与 NAS 有什么区别？",
+      "hint": "请不要只回答「NAS 功能更多」，而要说明两者在系统结构上的差别。",
+      "referenceAnswer": "硬盘是 NAS 的一个硬件部件，只负责长期保存数据，自己不会理解用户请求、也不管理权限和网络。NAS 是一台完整的计算机系统，包含硬件、操作系统和应用三层：操作系统管理硬件、用户、文件和网络，应用提供照片、影音、文件共享等具体服务，并通过网络向其他设备提供这些能力。",
+      "keyPoints": [
+        { "text": "硬盘只是硬件部件，只负责长期保存数据", "required": true },
+        { "text": "NAS 包含操作系统，负责管理硬件、用户和网络", "required": true },
+        { "text": "NAS 包含应用层，提供具体服务", "required": true },
+        { "text": "NAS 通过网络向其他设备提供能力", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 2
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "stem": "操作系统和应用有什么区别？请各举一个 NAS 场景中的例子。",
+      "referenceAnswer": "操作系统是管理整台机器的基础软件，负责启动和管理硬件、管理文件、用户权限和网络连接，并为应用提供统一的运行环境；应用是运行在操作系统之上、完成某个具体任务的软件，通常不直接管理整机硬件，而是向操作系统提出请求。NAS 场景中，NAS 系统本身属于操作系统层；Immich（照片管理）或 Jellyfin（影音播放）属于应用层。",
+      "keyPoints": [
+        { "text": "操作系统管理整机资源：硬件、文件、用户权限、网络", "required": true },
+        { "text": "应用只完成某个具体任务，通过操作系统间接使用硬件", "required": true },
+        { "text": "举出操作系统层的例子（如 NAS 系统本身）", "required": true },
+        { "text": "举出应用层的例子（如 Immich、Jellyfin、文件管理）", "required": true }
+      ],
+      "domains": ["Hardware"],
+      "weight": 2
+    },
+    {
+      "id": "q7",
+      "type": "scenario",
+      "stem": "一台 NAS 可以正常开机，电脑也可以正常访问其中的共享文件，但 Jellyfin 无法打开。",
+      "prompt": "你会优先把它理解为哪一层的问题？还需要检查哪些信息，才能避免过早下结论？",
+      "referenceAnswer": "优先按应用层理解：共享文件正常，说明硬件和操作系统大体在工作，最可能只是 Jellyfin 这个应用出了问题，不要笼统地说「NAS 坏了」。还需要补充确认：其他应用（比如 Immich）是否正常、Jellyfin 的日志里报了什么、它对应的服务或容器是否在运行、最近是否更新或改动过配置、以及是打不开界面还是能打开但没有内容。补充这些信息后，才能判断问题停在哪一层。",
+      "keyPoints": [
+        { "text": "优先定位到应用层", "required": true },
+        { "text": "说明共享文件正常说明硬件和系统基本正常", "required": true },
+        { "text": "提出至少一项需要补充检查的信息（日志、其他应用、服务状态、近期改动）", "required": true },
+        { "text": "强调不能仅凭一个应用失败就判定整台 NAS 损坏", "required": false }
+      ],
+      "domains": ["Hardware", "Self-hosting"],
+      "weight": 3
+    },
+    {
+      "id": "q8",
+      "type": "scenario",
+      "stem": "小李说：「我给 NAS 安装了 Immich，它才从存储设备变成了一台计算机。」",
+      "prompt": "你同意吗？请解释原因。",
+      "referenceAnswer": "不同意。NAS 在安装 Immich 之前就已经是一台计算机了 —— 它一直具备硬件、操作系统和应用三层，只是当时提供的服务不同。Immich 只是新增了一个应用层的服务，改变的是它能做什么，而不是它是不是计算机。这个说法把「多了个功能」和「变成了另一种东西」混为一谈了。",
+      "keyPoints": [
+        { "text": "明确不同意", "required": true },
+        { "text": "指出 NAS 本来就具备硬件、操作系统、应用三层", "required": true },
+        { "text": "说明 Immich 只是新增的应用层服务，改变的是用途而非本质", "required": true }
+      ],
+      "domains": ["Hardware", "Self-hosting"],
+      "weight": 3
+    },
+    {
+      "id": "q9",
+      "type": "scenario",
+      "stem": "一台旧电脑安装了适合的系统，连接了硬盘，并能让家里的手机和电脑通过网络访问文件。",
+      "prompt": "它是否可以承担 NAS 的角色？请从「硬件—操作系统—应用」三个层次说明。",
+      "referenceAnswer": "可以。从硬件层看，旧电脑的 CPU、内存、硬盘和网卡正好对应 NAS 需要的四类硬件角色，只是性能和功耗可能不如专用设备。从操作系统层看，装上适合的系统（例如 Linux 或 NAS 系统）后，它就能管理硬件、用户、权限和网络。从应用层看，文件共享服务的加入让它能向网络中的其他设备提供存储与访问能力。三层齐备，它就在承担 NAS 的角色 —— NAS 描述的是设备承担的角色，不是某个品牌或外形。",
+      "keyPoints": [
+        { "text": "明确回答可以承担", "required": true },
+        { "text": "硬件层：CPU、内存、硬盘、网卡齐备", "required": true },
+        { "text": "操作系统层：安装系统后可管理硬件、用户、权限和网络", "required": true },
+        { "text": "应用层：文件共享服务提供对外访问能力", "required": true },
+        { "text": "指出 NAS 是角色而非特定外形或品牌", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    },
+    {
+      "id": "q10",
+      "type": "scenario",
+      "stem": "把下面这些项目分别放入「硬件、操作系统、应用」三类：硬盘、NAS 管理系统、Jellyfin、CPU、Immich、内存。",
+      "prompt": "分类完成后，再用一条箭头链表示：当你在 Jellyfin 中播放 NAS 里的电影时，这三层如何协作。",
+      "referenceAnswer": "分类：硬件层 —— 硬盘、CPU、内存；操作系统层 —— NAS 管理系统；应用层 —— Jellyfin、Immich。播放电影时的协作链条：你在 Jellyfin 里点击播放（应用层接到请求）→ NAS 系统检查用户权限、定位文件并调度资源（操作系统层）→ CPU 完成运算、内存暂存正在读取的数据、硬盘提供影片文件、网卡把数据发往电视（硬件层）。数据流的方向是 用户 → 应用 → 操作系统 → 硬件。",
+      "keyPoints": [
+        { "text": "硬件层包含硬盘、CPU、内存", "required": true },
+        { "text": "操作系统层是 NAS 管理系统", "required": true },
+        { "text": "应用层包含 Jellyfin 和 Immich", "required": true },
+        { "text": "箭头链体现 应用 → 操作系统 → 硬件 的调用顺序", "required": true }
+      ],
+      "domains": ["Hardware"],
+      "weight": 3
+    }
+  ]
+}

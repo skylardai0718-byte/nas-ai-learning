@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-10",
+  "week": 2,
+  "day": 5,
+  "title": "PCIe 与 Lane",
+  "quizVersion": 1,
+  "domains": ["Hardware", "Storage"],
+  "recall": [
+    { "id": "r1", "stem": "PCIe 和 Lane 分别是什么？两者是什么关系？" },
+    { "id": "r2", "stem": "判断一个 NVMe 插槽的速度，需要知道哪两个数字？" },
+    { "id": "r3", "stem": "为什么入门 NAS 的 M.2 插槽常常只有 x1？" },
+    { "id": "r4", "stem": "什么是 PCIe 通道共享？它会给扩容带来什么实际影响？" },
+    {
+      "id": "r5",
+      "stem": "回顾本周：看到 `Intel N150 / 16GB DDR5 / 2×SATA / 1×M.2 NVMe / PCIe 3.0 x1`，你能逐项解释吗？它没告诉你什么？"
+    }
+  ],
+  "summary": {
+    "id": "summary",
+    "stem": "用不超过 120 字，说明「支持 NVMe」这条信息为什么不足以判断速度。",
+    "maxChars": 120,
+    "referenceAnswer": "「支持 NVMe」只说明这个插槽走的是 PCIe 通道类型，而不是 SATA。但速度还取决于两件事：PCIe 是第几代，以及分到几条 Lane。比如 PCIe 3.0 x1 虽然也是 NVMe，宽度只有一条车道，远达不到高端 NVMe 的峰值速度。所以必须看到代际和 Lane 数才能判断快慢。",
+    "keyPoints": [
+      { "text": "「支持 NVMe」只说明走 PCIe，不说明宽度和代际", "required": true },
+      { "text": "指出还需要知道 PCIe 代际", "required": true },
+      { "text": "指出还需要知道 Lane 数量", "required": true },
+      { "text": "举出 PCIe 3.0 x1 作为反例", "required": false }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "stem": "关于「PCIe 3.0 x1」，下列哪一项理解是正确的？",
+      "options": [
+        { "key": "A", "text": "第 3 代 PCIe，提供 3 条 Lane" },
+        { "key": "B", "text": "第 3 代 PCIe，提供 1 条 Lane" },
+        { "key": "C", "text": "1 条 Lane，速度为 3.0GB/s" },
+        { "key": "D", "text": "第 3 代 PCIe，理论速度是 x16 的十六倍" }
+      ],
+      "answer": "B",
+      "explanation": "B 正确：3.0 是代际，x1 是 Lane 数量，两段信息各说一件事。A 把「3.0」当成了 Lane 数量；C 把代际误读成了速度数值；D 把宽度关系说反了 —— x16 有十六条 Lane，带宽是 x1 的十六倍（同代际下），而不是反过来。这道题的关键是：代际和宽度是两个独立参数。",
+      "distractors": {
+        "A": "把代际数字当成了 Lane 数量",
+        "C": "把代际编号误读成容量或速度数值",
+        "D": "把 Lane 数量的倍数关系说反"
+      },
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "stem": "本周学了 CPU、内存、存储三类部件的规格。关于阅读规格表，下列哪一项说法最准确？",
+      "options": [
+        { "key": "A", "text": "只要数字够大，性能就一定够用" },
+        { "key": "B", "text": "规格能告诉你上限和条件，但要判断够不够用还得知道你要跑什么" },
+        { "key": "C", "text": "规格表没写的项目，说明它对性能没有影响" },
+        { "key": "D", "text": "同一类部件里，新的一代总是更值得选" }
+      ],
+      "answer": "B",
+      "explanation": "B 概括了本周反复强调的判断习惯：规格描述的是上限和条件，不是你的实际体验。A 忽略了瓶颈常在别处（比如 CPU 强但硬盘慢）；C 恰恰相反 —— 本周反复看到「没写的那部分」才是关键，比如 M.2 后面跟的是 SATA 还是 NVMe、PCIe 是第几代；D 过于绝对，DDR5 更新但 16GB DDR4 可能比 8GB DDR5 更实用，选哪一代还取决于平台上支持什么。",
+      "distractors": {
+        "A": "忽略了实际性能取决于完整数据流",
+        "C": "与「规格边界」的核心判断相反",
+        "D": "把代际新旧当成了唯一标准"
+      },
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q3",
+      "type": "truefalse",
+      "stem": "x16 插槽的传输能力一定比 x1 强，与 PCIe 代际无关。",
+      "answer": false,
+      "requiresReason": true,
+      "explanation": "错误。x16 只说明了宽度（十六条 Lane），没有说明代际。宽度和限速是两个维度：一条新路（比如 PCIe 4.0）的单车道，未必比一条老路（PCIe 2.0）的十六车道慢。判断快慢必须同时看「第几代」和「几条 Lane」，只凭其中一个数字下结论都不成立。",
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q4",
+      "type": "truefalse",
+      "stem": "在同代际的前提下，Lane 数量越多，能同时传输的数据越多。",
+      "answer": true,
+      "requiresReason": true,
+      "explanation": "正确。Lane 是 PCIe 的基本带宽单位，就像车道数。同代际下，Lane 越多，链路宽度越大，能同时传输的数据量越多 —— x4 的带宽约为 x1 的四倍。但要注意「同代际」这个前提：跨代际比较时，Lane 数和代际两个因素都要考虑，不能只看 Lane 数。",
+      "domains": ["Hardware"],
+      "weight": 1
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "stem": "用一句话和一段解释，说明 PCIe 是什么、Lane 是什么，以及两者如何共同决定速度。",
+      "referenceAnswer": "PCIe 是主板上连接高速设备的总线，M.2 NVMe 硬盘、网卡和扩展卡都走它；Lane 是这条总线的基本带宽单位，可以理解成车道。速度由两个参数共同决定：Lane 数量决定宽度（有几条车道），PCIe 代际决定每一代的速度（限速多少）。比如 PCIe 3.0 x4 表示第 3 代、4 条 Lane；PCIe 3.0 x1 只有 1 条 Lane，宽度是前者的四分之一。所以设备实际能跑多快，等于「设备自身能力」和「通道能提供的带宽」中较小的那个 —— 通道不够宽，设备再好也只能等着。",
+      "keyPoints": [
+        { "text": "PCIe 是连接高速设备的总线", "required": true },
+        { "text": "Lane 是带宽的基本单位，可类比车道数", "required": true },
+        { "text": "速度由 Lane 数量和代际共同决定", "required": true },
+        { "text": "指出实际速度取设备能力与通道带宽中的较小值", "required": false }
+      ],
+      "domains": ["Hardware"],
+      "weight": 2
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "stem": "一块 NVMe 硬盘插在只有 PCIe 3.0 x1 的 M.2 插槽上，可能受到什么限制？是否说明这块硬盘有问题？",
+      "referenceAnswer": "会受到带宽限制。PCIe 3.0 x1 只提供一条 Lane，宽度远小于 NVMe 硬盘常见的 x4 配置，所以硬盘无法发挥出它的峰值速度 —— 顺序读写会明显受限。但这不代表硬盘有问题，也不代表这种搭配没有价值：NVMe 相比机械硬盘的核心优势之一是低延迟，即便只有 x1，系统盘和容器启动的体验仍然明显好于 HDD，随机读写能力也仍然出色。问题的根源在主板设计（通道分配），换一块更贵的硬盘解决不了。所以判断时要分清楚瓶颈在设备还是在通道。",
+      "keyPoints": [
+        { "text": "会受到带宽限制，x1 宽度远小于常见的 x4", "required": true },
+        { "text": "明确这不能说明硬盘有问题，瓶颈在主板通道设计", "required": true },
+        { "text": "指出即便如此，NVMe 在低延迟和随机读写上仍优于 HDD", "required": true },
+        { "text": "提到换更贵的硬盘解决不了通道瓶颈", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 2
+    },
+    {
+      "id": "q7",
+      "type": "scenario",
+      "stem": "某台 NAS 的规格写：「1×M.2 NVMe」。用户想知道这个插槽到底有多快。",
+      "prompt": "仅凭这条信息能判断速度吗？还需要补充哪些信息？",
+      "referenceAnswer": "不能判断。「1×M.2 NVMe」只说明了三件事：有一个插槽、外形是 M.2、走的是 NVMe 而非 SATA 通道。但速度还取决于两个关键参数没有给出。第一是 PCIe 代际：是 3.0、4.0 还是 5.0，每一代的每 Lane 带宽不同。第二是 Lane 数量：常见 NVMe 是 x4，但入门 NAS 上常常只有 x1，宽度差四倍。除此之外，还应确认这块 M.2 是否与某些 SATA 接口共享通道（可能插了它就少一个盘位）、以及支持的长度规格（如 2280）。这些信息通常在主板或整机的详细规格页才有。只有「支持 NVMe」这一句，只能知道路修好了，不知道路有多宽。",
+      "keyPoints": [
+        { "text": "不能判断，仅凭这条信息不足", "required": true },
+        { "text": "需要补充 PCIe 代际（3.0 / 4.0 / 5.0）", "required": true },
+        { "text": "需要补充 Lane 数量（x1 还是 x4）", "required": true },
+        { "text": "提到还需确认是否与 SATA 共享通道或支持的长度规格", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    },
+    {
+      "id": "q8",
+      "type": "scenario",
+      "stem": "规格串：`Intel N150 / 16GB DDR5 / 2×SATA / 1×M.2 NVMe / PCIe 3.0 x1`。",
+      "prompt": "请逐项解释，并至少指出三项这条规格没有告诉你的信息。",
+      "referenceAnswer": "逐项解释：Intel N150 是 CPU 型号，低功耗四核，TDP 6W，适合常年开机；16GB DDR5 表示内存容量 16GB、属于 DDR5 平台，容量中等偏宽裕、代际较新；2×SATA 表示有两个 SATA 接口，可以接两块硬盘，这是主要的数据存储位置；1×M.2 NVMe 表示有一个 M.2 插槽且走 NVMe 通道，速度定位高于 SATA；PCIe 3.0 x1 是给这个 M.2 插槽分配的通道，第 3 代、只有一条 Lane —— 说明它虽然是 NVMe，但宽度有限，跑不出高端 NVMe 的峰值速度。没有告诉我的信息至少可以举出：M.2 实际能达到的速度、SATA 的版本、网口是千兆还是 2.5G、盘位的物理尺寸（3.5 寸还是 2.5 寸）、M.2 是否与 SATA 共享通道、内存能否升级、以及是否支持硬件转码。要判断这台机器适不适合我，必须补上这些。",
+      "keyPoints": [
+        { "text": "CPU 部分解释准确（型号、低功耗、适合常年开机）", "required": true },
+        { "text": "内存部分解释准确（容量与代际是两个维度）", "required": true },
+        { "text": "指出 PCIe 3.0 x1 会限制 M.2 NVMe 的速度", "required": true },
+        { "text": "至少指出三项规格未提供的信息", "required": true }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    },
+    {
+      "id": "q9",
+      "type": "scenario",
+      "stem": "一位用户给 NAS 加装了一块 M.2 NVMe 硬盘，之后发现原本能用的一个 SATA 盘位认不到硬盘了。他认为是硬盘坏了或系统出了故障。",
+      "prompt": "请解释可能的原因，并说明以后扩容时应该先做什么。",
+      "referenceAnswer": "很可能不是故障，而是 PCIe 通道共享导致的正常设计取舍。CPU 和芯片组能提供的 PCIe 通道数量是固定的，主板厂商常常让 M.2 插槽和某些 SATA 接口共用通道，于是「插上 M.2、某个 SATA 就失效」成为二选一的关系。这不是硬盘坏了，也不是系统故障 —— 拆下 M.2 后那个 SATA 盘位通常就会恢复。要验证可以查看主板或整机的规格说明，厂商一般会明确标注通道分配和互斥关系。以后的正确做法是：扩容之前先查通道分配说明，确认新增设备会不会影响已有接口，避免出现「加了硬盘反而少一个盘位」导致容量规划落空。这也说明阅读规格时不能只看单个接口，还要看它们之间的关系。",
+      "keyPoints": [
+        { "text": "指出原因是 PCIe 通道共享，属于正常设计取舍而非故障", "required": true },
+        { "text": "解释通道总数有限，插槽之间需要分配", "required": true },
+        { "text": "提出查看主板规格说明确认互斥关系", "required": true },
+        { "text": "指出扩容前应先查通道分配以避免容量规划落空", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    },
+    {
+      "id": "q10",
+      "type": "scenario",
+      "stem": "有人推荐一台 NAS：「Intel N100 / 8GB DDR4 / 2×SATA / 1×M.2 SATA / PCIe 2.0 x1 / 千兆网口」，说「它支持 NVMe，速度很快」。",
+      "prompt": "这个说法有哪些问题？请综合本周所学逐项说明。",
+      "referenceAnswer": "这个说法至少有三处不准确。第一，「支持 NVMe」与规格不符：规格写的是 M.2 SATA，外形虽然是 M.2，但走的是 SATA 通道，速度受 SATA 上限限制，根本不是 NVMe —— 这正是本周反复强调的「M.2 只是外形」。第二，即便它是 NVMe，PCIe 2.0 x1 的通道既代际旧、又只有一条 Lane，带宽非常有限，同样跑不出高速，所以「速度快」这个结论站不住。第三，「8GB DDR4」这个容量需要结合用途判断：如果只做文件共享够用，但如果要跑几个 Docker 容器或做照片索引，8GB 可能偏紧，而 DDR4 平台能否升级还要看内存插槽情况。此外规格还漏了盘位物理尺寸、是否支持硬件转码等影响实际体验的信息。正确的判断方式是：先看外形能不能装、再看通道和接口决定速度上限、最后结合用途评估容量是否足够 —— 而不是听一句「支持 NVMe」就下结论。",
+      "keyPoints": [
+        { "text": "指出 M.2 SATA 不是 NVMe，走 SATA 通道速度受限", "required": true },
+        { "text": "指出 PCIe 2.0 x1 代际旧且只有一条 Lane，带宽有限", "required": true },
+        { "text": "指出 8GB DDR4 够不够取决于用途，需要具体评估", "required": true },
+        { "text": "提到规格还缺少盘位尺寸、硬件转码等信息", "required": false }
+      ],
+      "domains": ["Hardware", "Storage"],
+      "weight": 3
+    }
+  ]
+}
