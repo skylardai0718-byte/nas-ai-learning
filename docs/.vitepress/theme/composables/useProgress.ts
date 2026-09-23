@@ -1,4 +1,4 @@
-import { ref, readonly, onMounted } from 'vue'
+import { ref, readonly, onMounted, toRaw } from 'vue'
 import { inBrowser } from 'vitepress'
 import {
   CURRENT_SCHEMA_VERSION,
@@ -100,9 +100,15 @@ function persist() {
   }
 }
 
-/** 只有显式写入才 copy-on-write，避免 readonly 包装挡住内部更新 */
+/**
+ * 只有显式写入才 copy-on-write，避免 readonly 包装挡住内部更新。
+ *
+ * toRaw 不能省：state.value 是 reactive Proxy，而 structuredClone 按规范
+ * 拒绝克隆 Proxy，会抛 DataCloneError。少了这一层，每次写入都会静默失败，
+ * 表现为「提交并批改」点了没反应、进度也从不落盘。
+ */
 function mutate(fn: (draft: AppState) => void) {
-  const draft = structuredClone(state.value)
+  const draft = structuredClone(toRaw(state.value))
   fn(draft)
   state.value = draft
   persist()

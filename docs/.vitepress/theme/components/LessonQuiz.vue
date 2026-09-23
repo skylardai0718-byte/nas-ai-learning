@@ -20,6 +20,7 @@ import type {
   QuizBank,
   ReviewItem,
   StoredAnswer,
+  SubjectiveAnswer,
   Tier,
 } from '../composables/types'
 
@@ -178,26 +179,27 @@ const gradedResult = computed(() => {
 
 /* ---------- 复述题与小结 ---------- */
 
-function setRecall(id: string, text: string) {
+/**
+ * 复述题的作答对象只在 textarea 的 input 事件里才创建。
+ * 学习者一个字没写就直接勾自评要点时，批改回调必须先补出这个对象，
+ * 否则勾选会被静默丢弃：框看起来勾上了，实际没记下来。
+ */
+function recallAnswer(id: string): SubjectiveAnswer {
   const prev = answers.value[id]
-  answers.value[id] = {
-    type: 'recall',
-    text,
-    checkedKeyPoints: prev && 'checkedKeyPoints' in prev ? prev.checkedKeyPoints : [],
-    rating: prev && 'rating' in prev ? prev.rating : null,
-  }
+  if (prev && 'checkedKeyPoints' in prev) return prev
+  return { type: 'recall', text: '', checkedKeyPoints: [], rating: null }
+}
+
+function setRecall(id: string, text: string) {
+  answers.value[id] = { ...recallAnswer(id), text }
 }
 
 function setRecallChecked(id: string, checked: string[]) {
-  const prev = answers.value[id]
-  if (!prev || !('checkedKeyPoints' in prev)) return
-  answers.value[id] = { ...prev, checkedKeyPoints: checked }
+  answers.value[id] = { ...recallAnswer(id), checkedKeyPoints: checked }
 }
 
 function setRecallRating(id: string, rating: Tier) {
-  const prev = answers.value[id]
-  if (!prev || !('rating' in prev)) return
-  answers.value[id] = { ...prev, rating }
+  answers.value[id] = { ...recallAnswer(id), rating }
 }
 
 const summaryLength = computed(() => summaryText.value.trim().length)
